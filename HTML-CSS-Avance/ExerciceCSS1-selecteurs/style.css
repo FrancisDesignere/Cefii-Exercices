@@ -1,0 +1,50 @@
+/* feuille de style pour l'exercice 9 */
+body {
+    font-family: 'Revalia', cursive;
+    text-align: center;
+}
+
+header {
+    text-shadow: 3px 3px 2px red;
+}
+
+div :first-child:first-letter {
+    font-size: 4em;
+}
+
+#div1 {
+    color: blue;
+}
+
+#div1 :last-child {
+    text-transform: uppercase;
+    font-size: 0.9em;
+    font-weight: bolder
+}
+
+#div2 {
+    color: blueviolet;
+}
+
+p:nth-of-type(2) {
+    font-size: 1.1em;
+}
+
+#p8 {
+    font-size: 1em;
+}
+
+#div3 :first-child {
+    color: red;
+}
+#div3 p:last-of-type {
+    color: green;
+}
+a{
+    text-decoration:none;    
+}
+a:hover {
+    color: dimgrey;
+    font-style: italic;
+    font-size: 1.5em;
+}

@@ -1,0 +1,56 @@
+/* feuille de style pour l'exercice CSS7-3D */
+#container {
+    background: radial-gradient(rgb(255, 255, 255) 0%, rgb(200, 200, 200) 33%, rgb(150, 150, 150) 66%, rgb(0, 0, 0) 100%);
+    border-radius: 1em;
+    text-align: center;
+    width: 30em;
+    height: 30em;
+    margin: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-perspective: 500px;
+    perspective: 500px;
+}
+
+.face {
+    color: white;
+    width: 10em;
+    height: 20em;
+    /*display: block;*/
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition-duration: 4s;
+    transition-duration: 4s;
+    -webkit-transition-timing-function: linear;
+    transition-timing-function: linear;
+}
+
+#recto {
+    background-color: black;
+}
+
+#verso {
+    background-color: gray;
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+}
+
+#container:hover #recto {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+#container:hover #verso {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}

@@ -1,0 +1,64 @@
+/*feuille de style de l'exercice CSS10-MonPremierSite*/
+/* style du formulaire  */
+.bloc_formulaire{
+    float: left;
+    width: 30em;
+    background-color: lightgrey;
+    border: 1px solid black;
+    border-radius: 25px;
+    margin: 0 5%;
+    -webkit-box-shadow: 10px 5px 6px 5px grey;
+    box-shadow: 10px 5px 6px 5px grey;
+}
+form{
+    width: 100%;
+}
+form ul{
+    margin: 1em 10px;
+    list-style-type: none;
+}
+form li{
+    margin: 0.5em;
+}
+form li label{
+    display: inline-block;
+    width: 9em;
+    font-weight: bold;
+    vertical-align: top;
+}
+form fieldset{
+    font-weight: bold;
+    border: 3px solid rgb(0,153,153);
+    border-radius: 25px;
+    left: 30px;
+    width: 90%;
+    margin: 0 auto;
+}
+form fieldset input{
+    position: relative;
+    display: inline-block;
+    width: 15%
+}
+form li input, form textarea{
+    width: 18em;
+    border-radius: 15px;
+    background-color: rgb(0,153,153);
+}
+form li input:focus,form textarea:focus{
+    background-color: white;
+    color:black;
+}
+.btn_form{
+    width: 4em;
+}
+
+#plan_google{
+    position: relative;
+    float: right;
+    right: 10px;
+}
+#plan_google h3 , #plan_google a{
+    top :0;
+    text-align: center;
+    text-decoration: none;
+}

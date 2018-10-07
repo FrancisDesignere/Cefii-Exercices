@@ -1,0 +1,34 @@
+/* feuille de style pour l'exercice CSS2 */
+ol{
+	list-style-type: upper-roman;
+}
+ul{
+	list-style-image: url('img/puce.png');
+}
+ol li::before{
+    content:"Elements"
+}
+ul li::before{
+    content:"Sous-élements"
+}
+
+
+
+/* test idem sans liste ... avec gestion des compteurs) */
+body {
+    counter-reset:Niveau1;
+}
+.N1::before {
+    content: counter(Niveau1,upper-roman) ". Elément" ;
+    counter-increment: Niveau1;
+}
+.N1{
+    counter-reset: Niveau2
+}
+.N2::before {
+    content: url(img/puce.png) " Sous-elément " ;
+    counter-increment: Niveau2;
+}
+.N2{
+    text-indent: 10%;
+}

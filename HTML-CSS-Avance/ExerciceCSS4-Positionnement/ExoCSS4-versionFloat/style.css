@@ -1,0 +1,100 @@
+/* feuille de style pour l'exercice CSS2 */
+html{
+    background-color: black;
+}
+body{
+    background-color: white;
+    height:100%;
+    margin: 0 auto;
+    width: 80%;
+}
+header ,  footer {
+    background-color: dimgrey;
+    text-align: center;
+}
+footer{
+    clear: both;
+}
+footer a{
+    color: white;
+}
+
+h1 {
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 5em;
+    margin: 0;
+}
+#navMenu{
+    background-color: darkviolet;
+    color: white;
+    height:8em; 
+    position: fixed;
+    top:0;
+}
+#sect1{
+    background-color: darkgrey;
+    color: white;
+    height: 16em;
+}
+#div1{
+    background-color: blue;
+    float: left;
+    height: 50%;
+    margin-left: 10%;
+    width: 30%;
+}
+#div2{
+    background-color: green;
+    float: left;
+    height: 50%;
+    margin: 0 0;
+    width: 15%;
+}
+#div3{
+    background-color: red;
+    clear: both;
+    float: right;
+    height: 50%;
+    width: 25%;
+}
+#div4{
+    background-color: black;
+    float: right;
+    height: 50%;
+    width: 10%;
+}
+#sect2{
+    clear: both;
+    height: 16em;
+    position: relative;
+}
+.divS2{
+    border-color: black;
+    border-style: solid solid none solid;    
+    height: 35%;
+    width: 20%;
+    position:absolute;
+}
+#div5{
+    background-color: yellow;
+    top:10%;
+    left: 10%;
+    z-index: 10;
+}
+#div5:hover {
+    left: 17%;
+    opacity: 0.5;
+}
+#div6 {
+    background-color: orange;
+    top: 20%;
+    left: 15%;
+    z-index: 5;
+}
+#div7 {
+    background-color: forestgreen;
+    top:25%;
+    left: 20%;
+    z-index: 1;
+}

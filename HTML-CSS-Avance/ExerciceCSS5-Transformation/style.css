@@ -1,0 +1,26 @@
+/* feuille de style pour l'exercice CSS5 */
+html{
+    background: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(white), to(grey));
+    background: linear-gradient(to bottom, white, white, grey);
+    height: 600px;
+}
+div {
+    border-style: solid;
+    width: 20%;
+    padding: 0;
+    line-height: 101px;
+    margin: 25% auto;
+    text-align: center;
+    -webkit-transition-duration: 2s;
+    -webkit-transition-timing-function:linear;
+    -ms-transition-duration: 2s;
+    -ms-transition-timing-function:linear;
+    transition-duration: 2s;
+    transition-timing-function:linear;
+}
+div:hover{
+    border-color: gold;
+    border-radius:  20%/50% 50% 50% 0;
+    -webkit-transform: scale(2)  rotate(90deg) ;
+    transform: scale(2)  rotate(90deg) ;
+}

@@ -1,0 +1,53 @@
+/*feuille de style pour les formulaires */
+
+ul{
+    margin: 1em auto;
+    list-style-type: none;
+}
+li{
+    width:100%;
+    margin: 0.5em;
+}
+form li label{
+    width:30%;
+    display: inline-block;
+    font-weight: bold;
+    vertical-align: top;
+}
+fieldset{
+    font-weight: bold;
+    border: 3px solid lightgreen;
+    width: 90%;
+    margin: 0 auto;
+}
+input, textarea , select{
+    width: 55%;
+    background-color: lightblue;
+}
+form li input:focus,form li textarea:focus{
+    background-color: white;
+}
+#listDel{
+    width: 100%;
+    margin:0 auto;
+    }
+.frmdel{
+    float: right;
+    margin-right:10%;
+}
+.frmdel input{
+    width: 18em;
+}
+.frmdel .btnDel{
+    width: 6em;
+}
+.btn_form{
+    width: 20%;
+    align-content: right;
+}
+.bloque{
+    color: grey;
+}
+.note{
+    font-weight:normal;
+}

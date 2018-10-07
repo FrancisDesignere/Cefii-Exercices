@@ -1,0 +1,67 @@
+/*feuille de style de l'exercice CSS9-Menu déroulant*/
+#menu ul {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    list-style: none;
+}
+
+.niveau1 > li {
+    display: inline-block;
+    margin-right: -0.25em;
+    width: 25%;
+    vertical-align: top;
+    position: relative;
+}
+
+.niveau1 a, niveau2 a {
+    text-decoration: none;
+    color: white;
+    border-radius: 2em;
+    background-color: #3B4E77;
+    display: block;
+    border: 1px solid white;
+    padding: 0.5em;
+}
+
+#menu a:hover {
+    background-color: #cc0;
+}
+
+#menu a:active {
+    background-color: #5F879D;
+}
+
+.niveau2 {
+    position: absolute;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+}
+
+#menu li:hover .niveau2 {
+    display: block;
+    max-height: 250px;
+    -webkit-transition: 1s;
+    transition: 1s;
+}
+
+.niveau3 {
+    max-height: 0;
+    overflow: hidden;
+}
+
+.niveau3 a {
+    text-align: right;
+    font-size: 0.8em;
+    background-color: skyblue;
+    color: grey;
+}
+
+.niveau2 li:hover .niveau3 {
+    display: block;
+    max-height: 250px;
+}
+#menu .niveau3 a :hover{
+    background-color: #cc0;
+}

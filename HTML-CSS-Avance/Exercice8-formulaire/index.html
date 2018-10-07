@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+
+<head>
+    <title>Exercice 8 formulaire</title>
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+    <p>* : Saisie obligatoire</p>
+    <form action="#" method="POST" enctype="multipart/form-data">
+        <label for="nom">Nom * : </label><input id="nom" name="nom" type="text" required placeholder="voitre nom ici"><br>
+        <label for="prenom">Prénom :</label><input id="prenom" name="prenom" type="text" placeholder="votre prénom ici"><br>
+        <label for="email">Email * :</label><input id="email" name="email" type="email" required placeholder="votre email"><br>
+        <label for="tel">Téléphone</label><input id="tel" name="tel" type="tel" size="18" placeholder="0123456789"><br>
+        <label for="age">Age : </label><input id="age" name="age" type="number" max="150" placeholder="votre âge"><br>
+        <fieldset>
+            <legend>Vous êtes</legend>
+            <input type="radio" name="personMoral" id="partic" value="partic" checked><label for="partic">Un particulier</label>
+            <input type="radio" name="personMoral" id="entrep" value="entrep"><label for="entrep">Une entreprise</label>
+            <input type="radio" name="personMoral" id="assoc" value="assoc"><label for="assoc">Une association</label>
+        </fieldset>
+        <fieldset>
+            <legend>Vous aimez passer vos vacances</legend>
+            <input type="checkbox" value="mer" id="mer"><label for="mer">A la mer</label>
+            <input type="checkbox" value="mont" id="mont"><label for="mont">A la montagne</label>
+            <input type="checkbox" value="camp" id="camp"><label for="camp">A la campagne</label>
+            <input type="checkbox" value="iles" id="iles"><label for="iles">Dans les îles</label>
+            <input type="checkbox" value="etrang" id="etrang"><label for="etrang">A l'étranger</label>
+        </fieldset><br>
+        <label for="choix">Vous souhaitez effectuer* : </label>
+        <select id="choix" name="choix">
+            <option id="resa" >Une réservation</option>
+            <option id="anul" >Une annulation</option>
+        </select>
+        <p><label for="sem">Pour la semaine : </label>
+            <input id="sem" name="sem" type="week" required><br></p>
+
+        <p><label for="msg">Votre message* : </label><br>
+            <textarea cols="80" rows="10" id="msg" name="msg" required>Bonjour,</textarea></p>
+
+        <label for="upload1">Pièce jointe</label>
+        <input type="file" id="upload1" name="upload1" />
+
+        <p><input id="reset" name="reset" type="reset">
+            <input id="validate" name="validate" type="submit"></p>
+    </form>
+</body>
+
+</html>

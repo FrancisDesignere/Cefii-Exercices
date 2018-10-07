@@ -1,0 +1,54 @@
+body {
+    font: 16px calibri, sans-serif;
+}
+#menuDeroulant {
+    text-align: center;
+}
+
+
+nav ul {
+    padding: 0;
+    list-style: none;
+}
+
+#menuDeroulant>li {
+    display: inline-block;
+    vertical-align: top;
+    width: 25%;
+    margin-right: -0.25em;
+    position: relative;
+}
+
+#menuDeroulant a {
+    display: block;
+    text-decoration: none;
+    background: #3B4E77;
+    color: white;
+    border-radius: 10px;
+    padding: 6px 0;
+}
+
+#menuDeroulant a:hover {
+    background-color: #cc0;
+}
+
+#menuDeroulant a:active {
+    background-color: #5F879D;
+}
+
+.sousMenu li {
+    margin-top: 1px;
+}
+
+.sousMenu {
+    max-height: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+}
+
+#menuDeroulant li:hover .sousMenu {
+    max-height: 250px;
+    -webkit-transition: 1s;
+    transition: 1s;
+}

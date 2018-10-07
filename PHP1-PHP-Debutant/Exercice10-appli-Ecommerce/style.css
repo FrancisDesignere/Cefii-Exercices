@@ -1,0 +1,39 @@
+/* 
+    feuille de style de l'exercice 10 du module php
+*/
+table{
+    margin: auto;
+}
+h2{
+    color: greenyellow;
+    text-align:center;
+}
+th{
+    border-width:2px;
+    border-style:solid;
+    border-color:greenyellow;
+}
+td{
+    border-width:1px;
+    border-style:dotted;
+    border-color:greenyellow;
+    text-align:center;
+}
+
+div{
+    text-align:center;
+/*    border-width:1px;
+    border-style:solid;
+    border-color:greenyellow;        
+*/
+}
+
+#listPdt{
+    float: left;
+    width: 55%;
+}
+#panier{
+    float: right;
+    margin-left: 20px;
+}
+

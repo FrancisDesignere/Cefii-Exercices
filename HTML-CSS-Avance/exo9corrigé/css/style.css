@@ -1,0 +1,56 @@
+body {
+    font: 16px calibri, sans-serif;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+
+/* Elements de premier niveau */
+
+#menuDeroulant>li {
+    float: left;
+    width: 25%;
+    position: relative;
+}
+
+#menuDeroulant li a {
+    display: block;
+    color: #FFF;
+    background: #3B4E77;
+    border-radius: 10px;
+    padding: 6px 0;
+    text-decoration: none;
+    text-align: center;
+}
+
+#menuDeroulant a:hover {
+    background-color: #cc0;
+}
+
+#menuDeroulant a:active {
+    background-color: #5F879D;
+}
+
+
+/* Elements de deuxieme niveau */
+
+#menuDeroulant .sousMenu {
+    display: none;
+    position: absolute;
+    width: 100%;
+}
+
+#menuDeroulant .sousMenu li {
+    border-top: 1px solid transparent;
+}
+
+#menuDeroulant li:hover>.sousMenu {
+    display: block;
+}
+
+p {
+    clear: both;
+}
