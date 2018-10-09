@@ -43,7 +43,7 @@ $_SESSION['token']=(string)$token;
         include './frmCreaArt.php';
     }else{
         // inclusion d'un formulaire du formulaire de Modification d'article
-        if (!$_SESSION['Art']==null){
+        if (isset($_SESSION['Art'])){
             include './frmModifArt.php';
             //$_SESSION['Art']=NULL;// à garder ?
         }
