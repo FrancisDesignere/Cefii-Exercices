@@ -13,7 +13,7 @@ $_SESSION['token']=(string)$token;
     <link rel="stylesheet" href="css/styleFormulaire.css" />
 </head>
 <body>
-    <h1>PHP2-Exercice4 modification d'Article</h1>
+    <h1>PHP2-Exercice5 Création/modification/suppression d'Article</h1>
     <hr>
     <!-- formulaire de choix de l'article -->
     <fieldset>
@@ -43,7 +43,7 @@ $_SESSION['token']=(string)$token;
         include './frmCreaArt.php';
     }else{
         // inclusion d'un formulaire du formulaire de Modification d'article
-        if (!$_SESSION['Art']==null){
+        if (isset($_SESSION['Art'])){
             include './frmModifArt.php';
             //$_SESSION['Art']=NULL;// à garder ?
         }
