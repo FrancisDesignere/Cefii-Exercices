@@ -3,16 +3,16 @@ session_start();
 $_SESSION['Art']=NULL;
 $cleanPost = filter_input_array(INPUT_POST);
 $codeArt=$cleanPost['code'];
-
+$msg='';
 if($_SESSION['token']=== $cleanPost['token']){
     if(file_exists('connect.php')){
         include 'connect.php';
-        // requete de tous les atributs de l'article
-        $reqSel = 'SELECT * FROM produit where code like "'.$codeArt.'" limit 0,1';
-        $result = $connexion->query($reqSel);
-        $ObjPdt = $result->fetchAll(PDO::FETCH_OBJ);
+        $strReq = "SELECT * FROM produit where code like :code limit 0,1";
+        $prep = $connexion->prepare($strReq);
+        $prep->execute(array(':code'=>$codeArt));
+        $ObjPdt = $prep->fetchAll(PDO::FETCH_OBJ);
         
-        // on passe l'article trouvé en session
+//        // on passe l'article trouvé en session
         $_SESSION['Art']= $ObjPdt;
 
     }else{ // si le fichier de connexion n'est pas présent
