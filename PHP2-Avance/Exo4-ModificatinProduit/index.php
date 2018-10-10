@@ -3,6 +3,7 @@ session_start();
 $_SESSION['nbArt']=0;
 $token= bin2hex(random_bytes(24));
 $_SESSION['token']=(string)$token;
+require './fonctions/functions.php';
 
 ?>
 <!DOCTYPE HTML>
@@ -37,15 +38,14 @@ $_SESSION['token']=(string)$token;
         <span class="note">Nombre d'article(s) éxistant(s) : <?php echo $_SESSION['nbArt'];?></span>
     </fieldset>
     <?php 
-    
     if ($_SESSION['nbArt']==0){
+        $_SESSION['msg']='la table produit est vide, crééz donc les premiers produits';
         // inclusion d'un formulaire de création s'il n'existe aucun n'article
         include './frmCreaArt.php';
     }else{
         // inclusion d'un formulaire du formulaire de Modification d'article
-        if (isset($_SESSION['Art'])){
+        if (isset($_SESSION['idArtEnCours'])){
             include './frmModifArt.php';
-            //$_SESSION['Art']=NULL;// à garder ?
         }
     }
     

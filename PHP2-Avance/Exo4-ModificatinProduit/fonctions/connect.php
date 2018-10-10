@@ -3,6 +3,7 @@
  * -  à la base de donnée en local 
  * -  ou à celle de F Désignère sur serveur Cefii
  */
+if (!isset($connexion)){
     // definie la base où se conecter en fonction de l'execution
     if (($_SERVER['HTTP_HOST']=="exoscefii") || ($_SERVER['HTTP_HOST']=="localhost")) {
         // mySql version 5.7
@@ -29,6 +30,7 @@
     }
     catch (Exception $badConnexion)
     {   // gestion d'erreur
-        echo 'Erreur de connexio : <br>' . $badConnexion->getMessage();    
-    }
+        $_SESSION['msg']= 'Erreur de connexio : <br>' . $badConnexion->getMessage();    
+    }   
+}
 ?>

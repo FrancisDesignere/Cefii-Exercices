@@ -1,5 +1,6 @@
 <?php
-$objArt=$_SESSION['Art'][0];
+$objArt= getItemById($_SESSION['idArtEnCours']);
+
 ?>
 <!-- formulaire de saisie des modifications de l'article -->
     <fieldset>
@@ -8,10 +9,10 @@ $objArt=$_SESSION['Art'][0];
                 <ul>
                     <li>                                    
                         <label for="idArtModif"> identifiant interne : </label>
-                        <input id="idArtModif" class="bloque" name="id" type="text" readonly value="<?php echo $objArt->id;?>"> 
+                        <input id="idArtModif" class="bloque" name="id" type="text" disabled value="<?php echo $objArt->id;?>"> 
                     </li><li>
                         <label for="codeArtModif"> code article :</label>
-                        <input id="codeArtModif" class="bloque" name="code" type="text" disabled value="<?php echo $objArt->code;?>"> 
+                        <input id="codeArtModif" class="bloque" name="code" type="text" readonly value="<?php echo $objArt->code;?>"> 
                     </li><li>
                         <label for="designArtModif">désignation* :</label>
                         <textarea cols="20" rows="3" id="designArtModif" name="designation" required maxlength=50><?php echo $objArt->designation;?></textarea> 
