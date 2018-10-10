@@ -3,6 +3,7 @@ session_start();
 $_SESSION['nbArt']=0;
 $token= bin2hex(random_bytes(24));
 $_SESSION['token']=(string)$token;
+require './fonctions/functions.php';
 
 ?>
 <!DOCTYPE HTML>
@@ -35,17 +36,21 @@ $_SESSION['token']=(string)$token;
                 </li>
             </ul>
         </form>
+        <span class="note">Nombre d'article(s) éxistant(s) : <?php echo $_SESSION['nbArt'];?></span>
     </fieldset>
     <?php 
     
-    if ($_SESSION['nbArt']==0){
+    // gestion du cas où il la table produits est vide (ou presque), pour proposer la création d'article
+    if ($_SESSION['nbArt']<3){
+        $_SESSION['msg']='la table produit est comme vide, crééz donc des premiers produits';
         // inclusion d'un formulaire de création s'il n'existe aucun n'article
         include './frmCreaArt.php';
-    }else{
-        // inclusion d'un formulaire du formulaire de Modification d'article
-        if (isset($_SESSION['Art'])){
+
+    }else{    
+        // si un article a été sélectionné (après validation du formulaire de seléction)
+        // inclusion du formulaire de Modification de l'article
+        if (isset($_SESSION['idArtEnCours'])){
             include './frmModifArt.php';
-            //$_SESSION['Art']=NULL;// à garder ?
         }
     }
     
@@ -60,7 +65,7 @@ $_SESSION['token']=(string)$token;
             <?php // la construction des options correspondant à chaque article en base
             $paramList='frmsDelete';
             include 'fonctions/GetListProduits.php';
-            ?>
+            ?>    
         </div>
     </fieldset>
 
