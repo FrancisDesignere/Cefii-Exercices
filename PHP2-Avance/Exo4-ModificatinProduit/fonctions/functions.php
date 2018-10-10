@@ -41,7 +41,7 @@ function getItemById($id){
 function SetItem($code, $designation, $pu=0, $madeIn=""){
     global $connexion;
     $art = getItemByCode($code);
-    if(count($art)==0){ // cas d'une création d'article
+    if($art==false){ // cas d'une création d'article
         $reqPrepIns = $connexion->prepare("INSERT INTO produit (`code`, `designation`) VALUES (:codeArt, :designation)");
         $reqPrepIns->execute(array(':codeArt'=>$code, ':designation'=>$designation));
         return $reqPrepIns->rowCount();
