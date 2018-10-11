@@ -1,0 +1,81 @@
+/*feuille de style pour les formulaires */
+
+ul{
+    margin: 1em auto;
+    list-style-type: none;
+}
+li{
+    width:100%;
+    margin: 0.5em;
+}
+form li label{
+    width:30%;
+    display: inline-block;
+    font-weight: bold;
+    vertical-align: top;
+}
+fieldset{
+    font-weight: bold;
+    border: 3px solid lightgreen;
+    width: 90%;
+    margin: 0 auto;
+}
+input, textarea , select{
+    width: 55%;
+    background-color: lightblue;
+}
+form li input:focus,form li textarea:focus{
+    background-color: white;
+}
+#listDel{
+    width: 100%;
+    margin:0 auto;
+    }
+.divItem{
+    display: inline-block;
+    widht:50%;
+    border: 1px solid lightgreen;
+    margin: 1px 1em;
+}
+
+.frmdel , .frmUpdt{
+    float: left;
+    display: inline-block;
+    margin:0 auto;
+}
+
+.frmdel input{
+    width: 18em;
+}
+.frmdel .btnDel{
+    width: 6em;
+    background-image: url('btnDelete.jpg');
+    background-size: contain;
+    border:none;
+    width: 20px; /* largeur à spécifier */
+    height: 20px; /* longueur à spécifier */
+    cursor: pointer;
+    margin: 2px 2px 0 0;
+}
+.frmUpdt .btnUpdt{
+    display: inline-block;
+    float: right;
+    width: 6em;
+    background-image: url('btnEdit.png');
+    background-size: contain;
+    border:none;
+    width: 20px; /* largeur à spécifier */
+    height: 20px; /* longueur à spécifier */
+    cursor: pointer;
+    margin: 3px 2px;
+}
+.btn_form{
+    width: 20%;
+    align-content: right;
+}
+.bloque{
+    color: grey;
+}
+.note{
+    font-weight:normal;
+}
