@@ -11,59 +11,59 @@ if(file_exists('./fonctions/connect.php')){
 /*récupération d'une liste de tous les objets article présents en base*/
 function getAllItems() {
     global $connexion;   
-    $strReq = "SELECT * FROM produit";
+    $strReq = "SELECT * FROM produits";
     $prep = $connexion->prepare($strReq);
     $prep->execute();
     $lstObjPdt = $prep->fetchAll(PDO::FETCH_OBJ);
     return $lstObjPdt ;
 
 }
-/*récupération d'un objet article par son code (réf externe) (clé métier)*/
-function getItemByCode($code){
+/*récupération d'un objet article par sa référence (réf externe) (clé métier)*/
+function getItemByRef($reference){
     global $connexion;
-    $strReq = "SELECT * FROM produit where code like :code limit 0,1";
+    $strReq = "SELECT * FROM produits where reference like :reference limit 0,1";
     $prep = $connexion->prepare($strReq);
-    $prep->execute(array(':code'=>$code));
+    $prep->execute(array(':reference'=>$reference));
     $ObjPdt = $prep->fetch(PDO::FETCH_OBJ); 
     return $ObjPdt;
 }
 /*récupération d'un objet article par son id (interne)*/
-function getItemById($id){
+function getItemById($idproduits){
     global $connexion;
-    $strReq = "SELECT * FROM produit where id = :id";
+    $strReq = "SELECT * FROM produits where idproduits = :id";
     $prep = $connexion->prepare($strReq);
-    $prep->execute(array(':id'=>$id));
+    $prep->execute(array(':id'=>$idproduits));
     $ObjPdt = $prep->fetch(PDO::FETCH_OBJ); 
     return $ObjPdt;
 }
 
 /*mise à jour d'un article  */
-function SetItem($code, $designation, $pu=0, $madeIn=""){
+function SetItem($reference, $nom, $pdt_commentaire="", $qte=0){
     global $connexion;
-    $art = getItemByCode($code);
+    $art = getItemByRef($reference);
     if($art==false){ // cas d'une création d'article
-        $reqPrepIns = $connexion->prepare("INSERT INTO produit (`code`, `designation`) VALUES (:codeArt, :designation)");
-        $reqPrepIns->execute(array(':codeArt'=>$code, ':designation'=>$designation));
+        $reqPrepIns = $connexion->prepare("INSERT INTO produits (`reference`, `nom`) VALUES (:refArt, :nom)");
+        $reqPrepIns->execute(array(':refArt'=>$reference, ':nom'=>$nom));
         return $reqPrepIns->rowCount();
     }elseif(count($art)==1){// cas d'une mise à jour article
-        $strReq="UPDATE produit SET `designation` = :designation, ";
-        $strReq.="`prixUnitaire` = :pu, ";
-        $strReq.="`madeIn` = :madeIn ";
-        $strReq.="WHERE `id`= :id";
+        $strReq="UPDATE produits SET `pdt_commentaire` = :pdt_commentaire, ";
+        $strReq.="`quantite` = :qte, ";
+        $strReq.="`nom` = :nom ";
+        $strReq.="WHERE `idproduits`= :id";
         $prep = $connexion->prepare($strReq);
-        $prep->execute(array(':designation'=>$designation, ':pu'=>$pu, ':madeIn'=>$madeIn,':id'=>$art->id));        
+        $prep->execute(array(':pdt_commentaire'=>$pdt_commentaire, ':qte'=>$qte, ':nom'=>$nom,':id'=>$art->idproduits));
         return $prep->rowCount();
     }else{
-        $_SESSION['msg']= 'cas non prévu : doublon de code article';
+        $_SESSION['msg']= 'cas non prévu : doublon de référence article';
     }
 }
 
-/*récupération d'un objet article par son id (interne)*/
-function DeleteItem($id){
+/*suppression d'un article via son idproduits*/
+function DeleteItem($idproduits){
     global $connexion;
-    $strReq = 'DELETE FROM produit where id =:id';
+    $strReq = 'DELETE FROM produits where idproduits =:id';
     $ReqPrep = $connexion->prepare($strReq);
-    $ReqPrep->bindParam(':id',$id,PDO::PARAM_INT);
+    $ReqPrep->bindParam(':id',$idproduits,PDO::PARAM_INT);
     $ReqPrep->execute();
     return $ReqPrep->rowCount(); 
 }

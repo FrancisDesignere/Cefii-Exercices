@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `PHP2_ExoFinal`.`produits` (
   `reference` VARCHAR(20) NOT NULL,
   `nom` VARCHAR(45) NULL,
   `quantite` INT NULL DEFAULT 0,
-  `commentaire` VARCHAR(45) NULL,
+  `pdt_commentaire` VARCHAR(45) NULL,
   PRIMARY KEY (`idproduits`),
   UNIQUE INDEX `reference_UNIQUE` (`reference` ASC) VISIBLE)
 ENGINE = InnoDB;

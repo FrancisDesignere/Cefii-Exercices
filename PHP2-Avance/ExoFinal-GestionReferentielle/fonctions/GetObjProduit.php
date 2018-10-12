@@ -16,9 +16,9 @@ $msg='';
     if($_SESSION['token']=== $cleanPost['token']){
 
         // on récupère l'objet article selectioné par la fonction 
-        $ArtSelected = getItemById($cleanPost['id']);
+        $ArtSelected = getItemById($cleanPost['idproduits']);
         // on stock l'id de l'article trouvé en variable de session 
-        $_SESSION['idArtEnCours']= $ArtSelected->id; 
+        $_SESSION['idArtEnCours']= $ArtSelected->idproduits; 
 
     }else{ // cas d'appel non reconnu
         $msg='Tentative d\'attaque !! ';

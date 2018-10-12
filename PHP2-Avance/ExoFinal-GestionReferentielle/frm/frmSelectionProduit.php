@@ -16,8 +16,8 @@ if($page=='DelPdt'){
         <form id="formChoixArt" action="<?php echo $action;?>" method="POST">
             <ul>
                 <li>                    
-                    <label for="codeChoixModif">code</label>
-                    <select id="codeChoixModif" name="id" required>
+                    <label for="ChoixProduit">Référence : nom </label>
+                    <select id="ChoixProduit" name="idproduits" required>
                         <option value="" ></option>
                         <?php // la construction des options correspondant à chaque article en base
                         $paramList='option';
@@ -25,6 +25,7 @@ if($page=='DelPdt'){
                         ?>
                     </select>
                 </li><li>
+                    <label for="validChoixArt"></label>
                     <input type="hidden" name="token" value="<?php echo $token;?>">
                     
                     <input id="validChoixArt" type="submit" value="<?php echo $btnText;?>" class="btn_form">

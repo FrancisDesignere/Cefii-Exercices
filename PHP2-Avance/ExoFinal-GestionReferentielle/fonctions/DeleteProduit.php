@@ -7,11 +7,11 @@ include './functions.php';
 if($_SESSION['token']=== $cleanPost['token']){
 
         // appel de la fonction delete
-        $nbDeleted = DeleteItem($cleanPost['id']);
+        $nbDeleted = DeleteItem($cleanPost['idproduits']);
         if ($nbDeleted>0){
             $msg="article supprimé";
-            // si l'article supprimé était celui en cours, on null l'id de l'article en cours
-            if ($cleanPost['id']==$_SESSION['idArtEnCours']){
+            // si l'article supprimé était celui en cours, on null l'idproduits de l'article en cours
+            if ($cleanPost['idproduits']==$_SESSION['idArtEnCours']){
                 $_SESSION['idArtEnCours']=NULL;
             }
             

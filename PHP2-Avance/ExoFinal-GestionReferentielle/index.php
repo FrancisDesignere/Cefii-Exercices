@@ -14,9 +14,9 @@ if (isset($cleanGet['page'])){
 }else{
     $page='ListePdts';
 }
-// on récupère la page demandée, qu'elle provienne du get ou de la variable en session
-if (isset($cleanGet['id'])){
-    $idItem=$cleanGet['id'];
+// on récupère l'article demandé s'il est passé en get (en écrasant éventuellement celui stocké en variable de session)
+if (isset($cleanGet['idproduits'])){
+    $idItem=$cleanGet['idproduits'];
     $_SESSION['idArtEnCours']=$idItem;
 }
 echo '<br>' .$page;/////

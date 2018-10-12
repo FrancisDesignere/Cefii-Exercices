@@ -14,28 +14,31 @@ if($_SESSION['token']=== $token){
     $_SESSION['nbArt']= count($lstObjPdt);
     
     foreach($lstObjPdt as $objPdt){
-        $codePad = str_pad($objPdt->code,5).' | '; // cette variable acceuil une versio paddée du code sur 5 digit (pour l'alignement)
-        
+
+
         if ($paramList=='option'){
+            // ici, dans le cas ou le script est appelé pour la 
             // écriture des options du select html, suivant le modèle                         
             // <option value="parcour1" >Réserver un parcour1</option>
-                echo '<option value="'.$objPdt->id.'">'.$codePad .$objPdt->designation.'</option>' ;
+                echo '<option value="'.$objPdt->idproduits.'">'.$objPdt->reference.' : ' .$objPdt->nom.'</option>' ;
 
+                
         }elseif ($paramList=='frmsDelete') {
-            // écriture de fomulaires avec description et bouton poubelle pourr chaque articles
-            //         <form id="formChoixArt" action="fonctions/GetObjProduit.php" method="POST">
-            echo '<div id="Item'.$objPdt->id.'" class="divItem">';
+            // ici dans le cas ou le script est appelé pour la construction du formulaire de liste produit
+            
+            // une div pour regrouper 2 formulaires (nécessaires car action pour supprimer et action pour modifier
+            echo '<div id="Item'.$objPdt->idproduits.'" class="divItem">';
                 // un form uniquement pour le bouton modification
-                echo '<form class="frmUpdt" id="frmUpdt'.$objPdt->id.'" action="index.php" method="GET">';
-                    echo '<input type="hidden" name="id" value="'.$objPdt->id.'">';
+                echo '<form class="frmUpdt" id="frmUpdt'.$objPdt->idproduits.'" action="index.php" method="GET">';
+                    echo '<input type="hidden" name="idproduits" value="'.$objPdt->idproduits.'">';
                     echo '<input type="hidden" name="page" value="UpdtPdt">';
                     echo '<input type="hidden" name="token" value="'.$token.'">';
                     echo '<input class="btnUpdt" id="validModifArt" type="submit" value="" title="modifier" >';
                 echo '</form>';
                 // un form pour le libellé et l'action suppression
-                echo '<form class="frmdel" id="frmDel'.$objPdt->id.'" action="fonctions/DeleteProduit.php" method="POST">';
-                    echo '<input id="imputDel'.$objPdt->id.'" class="bloque" name="code" type="text" disabled value="'.$codePad.$objPdt->designation.'"> ';
-                    echo '<input type="hidden" name="id" value="'.$objPdt->id.'">';
+                echo '<form class="frmdel" id="frmDel'.$objPdt->idproduits.'" action="fonctions/DeleteProduit.php" method="POST">';
+                    echo '<input id="imputDel'.$objPdt->idproduits.'" class="bloque" name="reference" type="text" disabled value="'.$objPdt->reference.' : ' .$objPdt->nom.'"> ';
+                    echo '<input type="hidden" name="idproduits" value="'.$objPdt->idproduits.'">';
                     echo '<input type="hidden" name="token" value="'.$token.'">';
                     echo '<input class="btnDel" id="validModifArt" type="submit" value="" title="supprimer" >';
                 echo '</form>';
