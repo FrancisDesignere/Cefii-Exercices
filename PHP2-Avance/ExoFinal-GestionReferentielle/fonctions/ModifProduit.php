@@ -3,16 +3,16 @@ session_start();
 $cleanPost = filter_input_array(INPUT_POST);
 $msg = '';
 if ($cleanPost['qte']==''){$cleanPost['qte']=0;}
-
 include './functions.php';
-
 if($_SESSION['token']===$cleanPost['token']){
     $nbMajPdt = SetItem($cleanPost['reference'], $cleanPost['nom'], $cleanPost['pdt_commentaire'], $cleanPost['qte']);
     if ($nbMajPdt==1){
-        $msg='Le produit :"'.$cleanPost['nom'] .'"<br> a bien été mis à jour';
+        $msg='Le produit :"'.$cleanPost['nom'] .'" a bien été mis à jour';
     }else{
         $msg='Le produit n\'a pas été mis à jour (l\'avez vous modifié ?)';
     }
+    $nbFrn=updateItemSuppliersLinks($cleanPost['reference'], $cleanPost['frnPdt']);
+    $msg.='<br>il est lié à '.$nbFrn.'fournisseur(s)';
 }else{ // cas d'appel non reconnu
     $msg='Tentative d\'attaque !! ';
 }

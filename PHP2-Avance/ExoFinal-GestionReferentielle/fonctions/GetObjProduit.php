@@ -14,7 +14,6 @@ $msg='';
     include './functions.php';
 
     if($_SESSION['token']=== $cleanPost['token']){
-
         // on récupère l'objet article selectioné par la fonction 
         $ArtSelected = getItemById($cleanPost['idproduits']);
         // on stock l'id de l'article trouvé en variable de session 
@@ -25,6 +24,6 @@ $msg='';
     }
     
     $_SESSION['msg']= $msg;
-//// echo $page; // la variable en question n'est pas accessible d'ici (mais on en a pas tellement besoin)     
+
 header('Location: ../index.php'); 
 ?>

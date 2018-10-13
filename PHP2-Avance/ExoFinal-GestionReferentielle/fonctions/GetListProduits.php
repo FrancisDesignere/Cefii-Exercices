@@ -17,12 +17,11 @@ if($_SESSION['token']=== $token){
 
 
         if ($paramList=='option'){
-            // ici, dans le cas ou le script est appelé pour la 
+            // ici, dans le cas ou le script est appelé pour  
             // écriture des options du select html, suivant le modèle                         
             // <option value="parcour1" >Réserver un parcour1</option>
-                echo '<option value="'.$objPdt->idproduits.'">'.$objPdt->reference.' : ' .$objPdt->nom.'</option>' ;
+                echo '<option value="'.$objPdt->idproduits.'">'.$objPdt->reference.' : ' .$objPdt->nom.' (fourni par : ' .$objPdt->fournisseur.')</option>' ;
 
-                
         }elseif ($paramList=='frmsDelete') {
             // ici dans le cas ou le script est appelé pour la construction du formulaire de liste produit
             

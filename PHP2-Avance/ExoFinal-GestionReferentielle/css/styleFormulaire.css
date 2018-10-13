@@ -4,9 +4,9 @@ ul{
     margin: 1em auto;
     list-style-type: none;
 }
-li{
+form li{
     width:100%;
-    margin: 0.5em;
+    margin: 5px;
 }
 form li label{
     width:30%;

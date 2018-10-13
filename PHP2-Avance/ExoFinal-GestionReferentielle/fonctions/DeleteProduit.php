@@ -1,7 +1,6 @@
 <?php
 session_start();
 $cleanPost = filter_input_array(INPUT_POST);
-var_dump($cleanPost);
 include './functions.php';
 
 if($_SESSION['token']=== $cleanPost['token']){
