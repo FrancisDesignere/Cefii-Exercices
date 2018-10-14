@@ -5,8 +5,8 @@ if ($page=='AddPdt'){
     $objArtFrn= getItemSuppliers();
 }else{
     if (isset($_SESSION['idArtEnCours'])){
-    $objArt= getItemById($_SESSION['idArtEnCours']);
-    $objArtFrn= getItemSuppliers($_SESSION['idArtEnCours']);
+        $objArt= getItemById($_SESSION['idArtEnCours']);
+        $objArtFrn= getItemSuppliers($_SESSION['idArtEnCours']);
     }
 }
 ?>
@@ -34,7 +34,7 @@ if ($page=='AddPdt'){
                         <textarea cols="20" rows="3" id="designArtModif" name="pdt_commentaire"  maxlength=500><?php if (isset($objArt)){echo $objArt->pdt_commentaire;}?></textarea> 
                     </li><li>
                         <label for="qteArtModif">Quantité en stock : </label>
-                        <input id="qteArtModif" name="qte" type="text" maxlength=5 size=6 value="<?php if (isset($objArt)){echo $objArt->quantite;}?>"> 
+                        <input id="qteArtModif" name="qte" type="number" maxlength=5 size=6 value="<?php if (isset($objArt)){echo $objArt->quantite;}?>"> 
                     </li><li>
                         <label>Fournisseur(s) du produit <br> (touche Ctrl pour multiselection)</label>
                         <select name="frnPdt[]" multiple size="4">

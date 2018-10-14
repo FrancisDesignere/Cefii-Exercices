@@ -10,9 +10,9 @@ if($_SESSION['token']=== $cleanPost['token']){
         if ($nbDeleted>0){
             $msg="article supprimé";
             // si l'article supprimé était celui en cours, on null l'idproduits de l'article en cours
-            if ($cleanPost['idproduits']==$_SESSION['idArtEnCours']){
-                $_SESSION['idArtEnCours']=NULL;
-            }
+////            if ($cleanPost['idproduits']==$_SESSION['idArtEnCours']){
+////                $_SESSION['idArtEnCours']=NULL;
+////            }
             
         }else{
             $msg="Problème lors de la suppression";

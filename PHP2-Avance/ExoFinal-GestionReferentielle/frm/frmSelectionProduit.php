@@ -6,7 +6,7 @@ if($page=='DelPdt'){
 }else{
     $legend = ' Selectionez un article à modifier ';    
     $btnText = 'Modifier';
-    $action = './fonctions/GetObjProduit.php';
+    $action = './index.php';
 }
 ?>
 
@@ -20,8 +20,23 @@ if($page=='DelPdt'){
                     <select id="ChoixProduit" name="idproduits" required>
                         <option value="" ></option>
                         <?php // la construction des options correspondant à chaque article en base
-                        $paramList='option';
-                        include 'fonctions/GetListProduits.php';
+//                        $paramList='option';
+//                        include 'fonctions/GetListProduits.php';
+                            $msg='';
+
+                            $lstObjPdt = getAllItems();
+                            $_SESSION['nbArt']= count($lstObjPdt);
+
+                            foreach($lstObjPdt as $objPdt){
+                                        echo '<option value="'.$objPdt->idproduits.'">'.$objPdt->reference.' : ' .$objPdt->nom.' (fourni par : ' .$objPdt->fournisseur.')</option>' ;
+                            }
+
+                            if (isset($_SESSION['msg'])){
+                                $_SESSION['msg'].= $msg;
+                            }else{
+                                $_SESSION['msg']= $msg;
+                            }                        
+                        
                         ?>
                     </select>
                 </li><li>
