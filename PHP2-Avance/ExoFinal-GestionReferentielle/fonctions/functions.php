@@ -1,5 +1,11 @@
 <?php
-/* cette page regroupe les différents fonctions qui accèdent à la BDD */
+/**
+* cette page regroupe les différents fonctions qui accèdent à la BDD 
+*  - Des fonctions qui concernent le produit :  getAllItems , getItemByRef, getItemById , getItemSuppliers , 
+*      SetItem, updateItemSuppliersLinks , DeleteItemSuppliersLinks et DeleteItem
+*  - les fonctions similiaires concercant les fournisseurs
+*/
+
 if(file_exists('./fonctions/connect.php')){
     include './fonctions/connect.php';
 } elseif (file_exists('./connect.php')){
@@ -8,7 +14,13 @@ if(file_exists('./fonctions/connect.php')){
     $_SESSION['msg']="le fichier permettant la connexion à la base n'est pas présent";
 }
 
-/*récupération d'une liste de tous les objets article présents en base*/
+
+/**
+ * récupération d'une liste de tous les objets article présents en base
+ * 
+ * @global object $connexion
+ * @return object[]
+ */
 function getAllItems() {
     global $connexion;   
 //  $strReq = "SELECT * FROM produits";
@@ -30,7 +42,17 @@ function getAllItems() {
     return $lstObjPdt ;
 
 }
-/*récupération d'un objet article par sa référence (réf externe) (clé métier)*/
+/**
+ * getItemByRef retourne l'objet produit correspondant à la référence (clé métier) passée en paramêtre
+ * 
+ * fonction notemment appeler par la création de produit pour assurer l'unicité de la référence
+ * 
+ * @global object $connexion
+ * @param string $reference
+ *      la référence du produit (clé métier)
+ * @return objet
+ *      le produit sous forme d'objet
+ */
 function getItemByRef($reference){
     global $connexion;
     $strReq = "SELECT * FROM produits where reference like :reference limit 0,1";
@@ -39,7 +61,18 @@ function getItemByRef($reference){
     $ObjPdt = $prep->fetch(PDO::FETCH_OBJ); 
     return $ObjPdt;
 }
-/*récupération d'un objet article par son id (interne)*/
+
+/**
+ * récupération d'un objet article par son id (interne)
+ *  
+ * @global object $connexion
+ * @param int $idproduits
+ * @return object
+ *      Un objet correspondant au produit (tous ses attributs)
+ *      complété d'un attribut renseignant sur 
+ *      - son fournisseur (le nom) si monofournisseurs
+ *      - ou bien le nombre de fournisseurs si plusieurs
+ */
 function getItemById($idproduits){
     global $connexion;
 //    $strReq = "SELECT * FROM produits where idproduits = :id";
@@ -61,7 +94,18 @@ function getItemById($idproduits){
     return $ObjPdt;
 }
 
-/* récupération des fournisseurs d'un produit*/
+/**
+ * getItemSuppliers récupération des fournisseurs avec précisions de ceux proposant le produit passé en paramètre
+ * 
+ *  getItemSuppliers retourne TOUS les fournisseurs avec pour chacun 
+ *      - soit l'id du produit si le fournisseur le propose
+ *      - soit Null si le fournisseur ne le propose pas
+ *  
+ * @global object $connexion
+ * @param int $idproduits
+ * @return object[]
+ *      retourne un tableau d'objets avec id du fournisseur, nom de la société et id produit (ou null)
+ */
 function getItemSuppliers($idproduits=0){
     global $connexion;
     $strReq = "SELECT frn.idfournisseurs, frn.societe, pdtFrns.idproduits ";
@@ -75,7 +119,21 @@ function getItemSuppliers($idproduits=0){
     return $ObjFrnPdt;
 }
 
-/*mise à jour d'un article  */
+
+/**
+ * SetItem met à jour un article, ou le créer si besoin
+ * 
+ * la fonction commence par vérifier l'existant du produit d'après sa référence
+ * puis le créé ou le met à jour suivant qu'il existe ou non
+ * 
+ * @global object $connexion
+ * @param string $reference
+ * @param string $nom
+ * @param string $pdt_commentaire
+ * @param int $qte
+ * @return int
+ *      le retour donne le nombre d'article créé ou mis à jour (soit 0 ou 1 en l'occurence)
+ */
 function SetItem($reference, $nom, $pdt_commentaire="", $qte=0){
     global $connexion;
     //on recherche d'abord l'article par sa réf pour déterminer s'il s'agit d'une création ou  d'une mise à jour
@@ -97,7 +155,17 @@ function SetItem($reference, $nom, $pdt_commentaire="", $qte=0){
         $_SESSION['msg']= 'cas non prévu : doublon de référence article';
     }
 }
-/*mise à jour du lien produit/fournisseurs */
+
+/**
+ * updateItemSuppliersLinks : mise à jour du lien produit/fournisseurs
+ * 
+ * @global object $connexion
+ * @param string $reference
+ * @param int[] $LstSuppliersLinks
+ *      un tableau contenant les id des fournisseurs à rattacher au produit
+ * @return int
+ *      retourne le nombre de liens effectifs
+ */
 function updateItemSuppliersLinks($reference, $LstSuppliersLinks) {
     $cpt=0;
     global $connexion;
@@ -115,6 +183,19 @@ function updateItemSuppliersLinks($reference, $LstSuppliersLinks) {
     }
     return $cpt;
 }
+/**
+ * DeleteItemSuppliersLinks : permet de supprimer les liens d'un produit, ou d'un fournisseurs
+ * 
+ * si l'id passé en paramètre est  un idproduit on supprime les rattachement du produit à tous ses fournisseurs
+ * si l'id passé en paramètre est celui d'un fournisseur, on supprime les rattachement des tous les produits à ce fournisseurs
+ * Cette fonction est appelée en préambule de mise à jour de liens (principe de delete / insert)
+ * et en préambule de suppression d'article ou de fournisseur (pour couvrir l'absence de delete on cascade dans la BDD)
+ * 
+ * @global object $connexion
+ * @param int $id
+ *      l'id passé en parametre sera soit un id de produit, soit un id de fournisseurs
+ * @param string $what
+ */
 function DeleteItemSuppliersLinks($id, $what = 'idproduits') {
     global $connexion;
     // suivant la variable $what, on précise la colonne dont correspondant à la clé fournie
@@ -129,9 +210,16 @@ function DeleteItemSuppliersLinks($id, $what = 'idproduits') {
     $ReqPrep->bindParam(':id',$id,PDO::PARAM_INT);
     $ReqPrep->execute();
 }
-        
+       
 
-/*suppression d'un article via son idproduits*/
+/** 
+ * suppression d'un article via son idproduits
+ * 
+ * @global object $connexion
+ * @param int $idproduits
+ * @return int
+ *      le nombre d'article supprimé est retourné (normalement 1)
+ */
 function DeleteItem($idproduits){
     global $connexion;
     // n'ayant pas mis de contrainte ou trigger de suppression en cascade dans la BDD, je gère ici applicativement la suppression dans la table de jointure.
