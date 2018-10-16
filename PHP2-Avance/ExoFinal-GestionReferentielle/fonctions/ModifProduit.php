@@ -12,7 +12,7 @@ if($_SESSION['token']===$cleanPost['token']){
         $msg='Le produit n\'a pas été mis à jour (l\'avez vous modifié ?)';
     }
     $nbFrn=updateItemSuppliersLinks($cleanPost['reference'], $cleanPost['frnPdt']);
-    $msg.='<br>il est lié à '.$nbFrn.'fournisseur(s)';
+    $msg.='<br>il est lié à '.$nbFrn.' fournisseur(s)';
 }else{ // cas d'appel non reconnu
     $msg='Tentative d\'attaque !! ';
 }

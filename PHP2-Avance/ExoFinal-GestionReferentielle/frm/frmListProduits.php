@@ -1,6 +1,5 @@
     <fieldset>
         <legend>liste des articles existants</legend>
-        <span class="note">Nombre d'article(s) éxistant(s) : <?php echo $_SESSION['nbArt'];?></span>
         <div id='listDel'>
             <?php // la construction des options correspondant à chaque article en base
 //            $paramList='frmsDelete';
@@ -22,7 +21,7 @@
                         echo '<input id="imputDel'.$objPdt->idproduits.'" class="bloque" name="reference" type="text" disabled value="'.$objPdt->reference.' : ' .$objPdt->nom.'"> ';
                         echo '<input type="hidden" name="idproduits" value="'.$objPdt->idproduits.'">';
                         echo '<input type="hidden" name="token" value="'.$token.'">';
-                        echo '<input class="btnDel" id="validModifArt" type="submit" value="" title="supprimer" >';
+                        echo '<input class="btnDel" id="validDelfArt" type="submit" value="" title="supprimer" >';
                     echo '</form>';
                 echo '</div>';
             }
@@ -34,4 +33,5 @@
             
             ?>    
         </div>
+        <span class="note">Nombre de fournisseurs(s) existant(s) : <?php echo $_SESSION['nbArt'];?></span>
     </fieldset>

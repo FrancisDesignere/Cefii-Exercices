@@ -44,7 +44,7 @@ if ($page=='AddPdt'){
                                     echo '<option value="'.$frn->idfournisseurs.'" '.$selected.'>'.$frn->societe.'</option>';
                                 }
                             ?>
-                        </select
+                        </select>
                      </li><li>
                             <input type="hidden" name="token" value="<?php echo $token;?>">
                             <input id="validModifArt" type="submit" value="valider" class="btn_form">      
