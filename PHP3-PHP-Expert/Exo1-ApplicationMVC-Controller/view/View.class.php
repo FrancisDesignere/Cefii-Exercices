@@ -18,7 +18,7 @@ class View
 
         // gestion de la bascule serveur local > serveur cefii
         if ($_SERVER['HTTP_HOST']=="cefii-developpements.fr"){
-            $this->page = str_replace('http://exoscefii/', 'http://cefii-developpements.fr/francis827/');
+            $this->page = str_replace('http://exoscefii/', 'http://cefii-developpements.fr/francis827/',$this->page);
         }
 
         echo $this->page;
