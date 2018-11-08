@@ -12,14 +12,9 @@ class View
     /** Affichage de la page */
     private function display() {
         // lien retour accueil
-        $this->page .= '<a  href="http://exoscefii/PHP3-PHP-Expert/Exo1-ApplicationMVC-Controller/">retour page accueil</a>';
+        $this->page .= '<a  href="./index.php">retour page accueil</a>';
 
         $this->page .= file_get_contents('view/html/footer.html');
-
-        // gestion de la bascule serveur local > serveur cefii
-        if ($_SERVER['HTTP_HOST']=="cefii-developpements.fr"){
-            $this->page = str_replace('http://exoscefii/', 'http://cefii-developpements.fr/francis827/',$this->page);
-        }
 
         echo $this->page;
     }
