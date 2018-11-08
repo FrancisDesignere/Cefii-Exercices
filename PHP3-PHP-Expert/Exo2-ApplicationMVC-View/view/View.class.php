@@ -13,17 +13,6 @@ class View
     /** Affichage de la page */
     private function display() {
         $this->page .= file_get_contents('view/html/footer.html');
-
-        // gestion de la bascule serveur local > serveur cefii
-        if ($_SERVER['HTTP_HOST']=="cefii-developpements.fr"){
-            $this->page = str_replace('http://exoscefii/', 'http://cefii-developpements.fr/francis827/',$this->page);
-            //passage remplacement des fichier boostrap par leur version minimisée
-            // (ou eventuellement pointer vers le ressources cdn (voir https://www.bootstrapcdn.com/)
-            // à noter également pour éviter le replace en prod, je devrais peut etre faire le contraire ...
-            $this->page = str_replace('bootstrap.css', 'bootstrap.min.css',$this->page);
-            $this->page = str_replace('bootstrap-theme.css', 'bootstrap-theme.min.css',$this->page);
-            $this->page = str_replace('bootstrap.js', 'bootstrap.min.js',$this->page);
-        }
         echo $this->page;
     }
     
