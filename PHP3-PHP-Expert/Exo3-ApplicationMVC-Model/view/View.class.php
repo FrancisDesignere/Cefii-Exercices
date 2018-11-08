@@ -13,25 +13,19 @@ class View
     /** Affichage de la page */
     private function display() {
         $this->page .= file_get_contents('view/html/footer.html');
-
-        // gestion de la bascule serveur local > serveur cefii
-        if ($_SERVER['HTTP_HOST']=="cefii-developpements.fr"){
-            //passage remplacement des fichier boostrap par leur version minimisée
-            // (ou eventuellement pointer vers le ressources cdn (voir https://www.bootstrapcdn.com/)
-            // à noter également pour éviter le replace en prod, je devrais peut etre faire le contraire ...
-            $this->page = str_replace('bootstrap.css', 'bootstrap.min.css',$this->page);
-            $this->page = str_replace('bootstrap-theme.css', 'bootstrap-theme.min.css',$this->page);
-            $this->page = str_replace('bootstrap.js', 'bootstrap.min.js',$this->page);
-        }
-        echo $this->page;
-        
+        echo $this->page;            
     }
     
     /** Alimentation de la page demandée */
     public function displayPageHtml($page){
-        $this->page .= file_get_contents('view/html/' . $page . '.html');
-        $this->display();
-    }
+        $fileName = 'view/html/' . $page . '.html';
+        if(file_exists($fileName)===true){ 
+            $this->page .= file_get_contents($fileName);
+        }else{
+            $this->page .= "Else : il n'existe pas de page ".$fileName;
+        }
+        $this->display();                
+   }
             
     /** Alimentation de la page liste à partir d’un tableau reçu par paramètre */
     public function displayList($list) {

@@ -34,7 +34,6 @@ class ConnectModel
         catch (Exception $badConnexion)
         {   // gestion d'erreur
             die('Erreur : ' . $badConnexion->getMessage()); //// gestion d'erreur à voir
-            //$_SESSION['msg']= 'Erreur de connexion : <br>' . $badConnexion->getMessage();    
         }   
     }
     
