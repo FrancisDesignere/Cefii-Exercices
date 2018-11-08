@@ -1,0 +1,26 @@
+        <div class='container'>
+            <form class="form-horizontal col-sm-6" action="{postAction}" method="POST">
+                <legend>Renseignements utilisateur</legend>
+                <input type="hidden" name="token" value="{token}">
+                <input id="id" name="id" type="text" hidden value="{id}">
+                <div class="form-group">
+                    <label for="nom" class="col-sm-3 control-label">Nom* : </label>
+                    <div class="col-sm-9">
+                        <input id="nom" name="nom" readonly type="text" class="form-control" placeholder="votre nom" required value="{nom}">             
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label for="prenom" class="col-sm-3 control-label">Prénom* : </label>
+                    <div class="col-sm-9">
+                        <input id="prenom" name="prenom" readonly type="text" class="form-control" placeholder="votre prénom" required value="{prenom}">
+                    </div>
+                </div>
+                <div class="form-group" > 
+                    <label for="ville"class="col-sm-3 control-label">Ville : </label>
+                    <div class="col-sm-9">
+                        <input id="ville" name="ville" readonly type="text" class="form-control" placeholder="lieu de résidence" value="{ville}">
+                    </div>
+                </div>
+                <button id="btnValid" type="submit" class="btn btn-primary pull-right">{lblBouton}</button>
+            </form>    
+        </div>

@@ -1,0 +1,44 @@
+        <div class='container'>
+            <form class="form-horizontal col-sm-6" action="{postAction}" method="POST">
+                <legend>Renseignements produit</legend>
+                <!-- le token et l'id sont présent mais caché -->
+                <input type="hidden" name="token" value="{token}">
+                <input id="id" name="id" type="text" hidden value="{id}">
+                <!-- Référence -->
+                <div class="form-group">
+                    <label for="reference" class="col-sm-3 control-label">Référence* : </label>
+                    <div class="col-sm-9">
+                        <input id="reference" name="reference" readonly type="text" class="form-control" placeholder="référence produit" required value="{reference}">             
+                    </div>
+                </div>
+                <!-- Nom -->
+                <div class="form-group">
+                    <label for="nom" class="col-sm-3 control-label">Nom* : </label>
+                    <div class="col-sm-9">
+                        <input id="nom" name="nom" readonly type="text" class="form-control" placeholder="votre nom" required value="{nom}">             
+                    </div>
+                </div>
+                <!-- quantite -->
+                <div class="form-group"> 
+                    <label for="quantite" class="col-sm-3 control-label">Quantité en stock</label>
+                    <div class="col-sm-9">
+                        <input id="quantite" name="quantite" readonly type="number" class="form-control" placeholder="nombre entier" required value="{quantite}">
+                    </div>
+                </div>
+                <!-- commentaire -->
+                <div class="form-group"> 
+                    <label for="commentaire" class="col-sm-3 control-label">Commentaire</label>
+                    <div class="col-sm-9">
+                        <input id="commentaire" name="commentaire" readonly type="textarea" class="form-control" placeholder="Un commentaire ?" required value="{commentaire}">
+                    </div>
+                </div>
+                <!-- id_fournisseur -->
+                <div class="form-group" > 
+                    <label for="id_fournisseur"class="col-sm-3 control-label">id du fourniseur </label>
+                    <div class="col-sm-9">
+                        <input id="id_fournisseur" name="id_fournisseur" readonly type="number" class="form-control" placeholder="un nombre entier" value="{id_fournisseur}">
+                    </div>
+                </div>
+                <button id="btnValid" type="submit" class="btn btn-primary pull-right">{lblBouton}</button>
+            </form>    
+        </div>

@@ -1,0 +1,44 @@
+        <div class='container'>
+            <form class="form-horizontal col-sm-6" action="{postAction}" method="POST">
+                <legend>Renseignements fournisseur</legend>
+                <!-- le token et l'id sont présent mais caché -->
+                <input type="hidden" name="token" value="{token}">
+                <input id="id" name="id" type="text" hidden value="{id}">
+                <!-- societe -->
+                <div class="form-group">
+                    <label for="societe" class="col-sm-3 control-label">Société* : </label>
+                    <div class="col-sm-9">
+                        <input id="societe" name="societe" readonly type="text" class="form-control" placeholder="raison sociale" required value="{societe}">             
+                    </div>
+                </div>
+                <!-- adresse -->
+                <div class="form-group">
+                    <label for="adresse" class="col-sm-3 control-label">Adresse : </label>
+                    <div class="col-sm-9">
+                        <input id="adresse" name="adresse" readonly type="text" class="form-control" placeholder="Adresse" required value="{adresse}">             
+                    </div>
+                </div>
+                <!-- code_postal -->
+                <div class="form-group"> 
+                    <label for="code_postal" class="col-sm-3 control-label">Code postal</label>
+                    <div class="col-sm-9">
+                        <input id="code_postal" name="code_postal" readonly type="number" class="form-control" placeholder="12345" required value="{code_postal}">
+                    </div>
+                </div>
+                <!-- ville -->
+                <div class="form-group"> 
+                    <label for="ville" class="col-sm-3 control-label">Ville</label>
+                    <div class="col-sm-9">
+                        <input id="ville" name="ville" readonly type="text" class="form-control" placeholder="Ville" required value="{ville}">
+                    </div>
+                </div>
+                <!-- commentaire -->
+                <div class="form-group" > 
+                    <label for="commentaire"class="col-sm-3 control-label">Commentaire </label>
+                    <div class="col-sm-9">
+                        <input id="commentaire" name="commentaire" readonly type="text" class="form-control" placeholder="un commentaire ?" value="{commentaire}">
+                    </div>
+                </div>
+                <button id="btnValid" type="submit" class="btn btn-primary pull-right">{lblBouton}</button>
+            </form>    
+        </div>
