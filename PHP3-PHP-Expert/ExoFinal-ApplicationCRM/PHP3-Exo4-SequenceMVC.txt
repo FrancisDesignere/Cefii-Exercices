@@ -1,0 +1,143 @@
+# ce fichier est exploitable sous www.websequencediagrams.com
+# (c'est format propriétaire de définition d'un diagramme de séquence)
+
+title Sequence MVC
+
+participant index
+participant controller
+participant view 
+participant [entite]view
+participant frm[entite]
+participant header\nhtml as header
+participant nav
+participant ?bodyPage\nhtml as ?bodyPage
+participant footer\nhtml as footer
+participant model
+participant [entite]model
+
+
+index<->controller: new Controller
+
+controller<->view :new View
+controller<->model :new Model
+model<->connectModel: new singleConnection
+
+opt affichage home
+index->+controller :dispatch(home)
+controller->+view: displayHmtl(home)
+deactivate controller
+view<->header:getContents()
+view<->nav:getContents()
+view<->?bodyPage:getContents()
+view<->-footer:getContents()
+end
+
+opt affichage list
+index->+controller :dispatch(list)
+controller->+model: GetList(table)
+model <->connectModel:getInstance()
+model->model: requete bdd
+model-->-controller : list[]
+controller->+view: displayList(list[])
+deactivate controller
+view<->header:getContents()
+view<->nav:getContents()
+loop boucle par élement
+view<->view:ecrit chaque\n element
+end
+view<->-footer:getContents()
+end
+
+opt ajout item
+index->+controller :dispatch(frm)\n sans item
+controller->+[entite]view : displayAdd()
+deactivate controller
+[entite]view->+view : 
+view<->header : getContents()
+view<->nav : getContents()
+view->[entite]view : 
+[entite]view<->frm[entite] : getContents()
+[entite]view->[entite]view : vide valeur \n maj action
+[entite]view->-view : displayForm
+view<->-footer:getContents()
+opt à la validation du formulaire rempli
+index->+controller :dispatch(add)
+controller->+[entite]model: Upsert
+[entite]model->model:construt
+model <->connectModel:getInstance()
+model->[entite]model: connection
+[entite]model->[entite]model: requete bdd
+[entite]model-->-controller : 
+controller->+view: displayList(list[])
+deactivate controller
+note right of view  : voir opt affichage list
+deactivate view
+end
+end
+
+
+opt mise à jour item
+index->+controller :dispatch(frm) \n avec item
+controller->+[entite]model: getItemById()
+[entite]model->model:construt
+model <->connectModel:getInstance()
+model->[entite]model: connection
+[entite]model->[entite]model: requete bdd
+[entite]model-->-controller : item
+controller->+[entite]view : displayUpdate(item)
+deactivate controller
+[entite]view->+view : 
+view<->header : getContents()
+view<->nav : getContents()
+view->[entite]view : 
+[entite]view<->frm[entite] : getContents()
+[entite]view->[entite]view : rempli valeur \n maj action
+[entite]view->-view : displayForm
+view<->-footer:getContents()
+opt à la validation du formulaire modifié
+index->+controller :dispatch(maj)
+controller->+[entite]model: Upsert
+[entite]model->model:construt
+model <->connectModel:getInstance()
+model->[entite]model: connection
+[entite]model->[entite]model: requete bdd
+[entite]model-->-controller : 
+controller->+view: displayList(list[])
+deactivate controller
+note right of view  : voir opt affichage list
+deactivate view
+end
+end
+
+opt suppression item
+index->+controller :dispatch(frmDel)
+controller->+[entite]model: getItemById()
+[entite]model->model:construt
+model <->connectModel:getInstance()
+model->[entite]model: connection
+[entite]model->[entite]model: requete bdd
+[entite]model-->-controller : item
+controller->+[entite]view : displayDelete(item)
+deactivate controller
+[entite]view->+view : 
+view<->header : getContents()
+view<->nav : getContents()
+view->[entite]view : 
+[entite]view<->frm[entite] : getContents()
+[entite]view->[entite]view : lecture seule \n maj action
+[entite]view->-view : displayForm
+view<->-footer:getContents()
+opt à la validation de la suppression
+index->+controller :dispatch(del)
+controller->+[entite]model: Upsert
+[entite]model->model:construt
+model <->connectModel:getInstance()
+model->[entite]model: connection
+[entite]model->[entite]model: requete bdd
+[entite]model-->-controller : 
+controller->+view: displayList(list[])
+deactivate controller
+note right of view  : voir opt affichage list
+deactivate view
+end
+end

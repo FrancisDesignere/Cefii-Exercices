@@ -1,0 +1,52 @@
+        <div class='container'>
+            <form class="form-horizontal col-sm-6" action="{postAction}" method="POST">
+                <legend>Renseignements Personne</legend>
+                <!-- le token et l'id sont présent mais cachés -->
+                <input type="hidden" name="token" value="{token}">
+                <input id="id" name="id" type="text" hidden value="{id}">
+                
+                <!-- nom -->
+                <div class="form-group">
+                    <label for="nom" class="col-sm-3 control-label">Nom* : </label>
+                    <div class="col-sm-9">
+                        <input id="nom" name="nom" readonly type="text" class="form-control" placeholder="Nom de famille" required value="{nom}">             
+                    </div>
+                </div>
+                <!-- prenom -->
+                <div class="form-group">
+                    <label for="prenom" class="col-sm-3 control-label">Prénom : </label>
+                    <div class="col-sm-9">
+                        <input id="prenom" name="prenom" readonly type="text" class="form-control" placeholder="Prénom" value="{prenom}">             
+                    </div>
+                </div>
+                <!-- adresse -->
+                <div class="form-group">
+                    <label for="adresse" class="col-sm-3 control-label">Adresse : </label>
+                    <div class="col-sm-9">
+                        <input id="adresse" name="adresse" readonly type="text" class="form-control" placeholder="Adresse" value="{adresse}">             
+                    </div>
+                </div>
+                <!-- code_postal -->
+                <div class="form-group"> 
+                    <label for="code_postal" class="col-sm-3 control-label">Code postal</label>
+                    <div class="col-sm-9">
+                        <input id="code_postal" name="code_postal" readonly type="text" pattern="[0-9]{5}" class="form-control" placeholder="Code postal (5 chiffres)" value="{code_postal}">
+                    </div>
+                </div>
+                <!-- ville -->
+                <div class="form-group"> 
+                    <label for="ville" class="col-sm-3 control-label">Ville</label>
+                    <div class="col-sm-9">
+                        <input id="ville" name="ville" readonly type="text" class="form-control" placeholder="Ville" value="{ville}">
+                    </div>
+                </div>
+                <!-- commentaire -->
+                <div class="form-group" > 
+                    <label for="commentaire"class="col-sm-3 control-label">Commentaire </label>
+                    <div class="col-sm-9">
+                        <input id="commentaire" name="commentaire" readonly type="text" class="form-control" placeholder="un commentaire ?" value="{commentaire}">
+                    </div>
+                </div>
+                <button id="btnValid" type="submit" class="btn btn-primary pull-right">{lblBouton}</button>
+            </form>    
+        </div>
