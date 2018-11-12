@@ -8,12 +8,13 @@ class Controller
 {
     private $view;
     private $model;
- 
+    static $lstCateg;
     
     public function __construct() 
     {
         $this->view = new View();
         $this->model = new Model();
+        self::$lstCateg = $this->model->getList('category');
     }
     
     public function dispatch() 
@@ -22,10 +23,7 @@ class Controller
         $cleanPost = filter_input_array(INPUT_POST);
         $action = (isset($cleanGet['action']))?$cleanGet['action']:"accueil";
         $entite = (isset($cleanGet['entite']))?$cleanGet['entite']:"Category";
-        // provisoirement, itemId peut venir de post ou get
-        if(isset($cleanGet['itemId'])){
-            $itemId = $cleanGet['itemId'];
-        }elseif(isset($cleanPost['itemId'])) {
+        if(isset($cleanPost['itemId'])) {
             $itemId = $cleanPost['itemId'];
         }else{
             $itemId = '';
@@ -68,35 +66,39 @@ class Controller
             
             case 'frm':
                 if ($itemId == ''){
-                    $objView->displayAdd();                
+                    $objView->displayAdd(self::$lstCateg);                
                 }else{
-                   $objItem = $objModel->getItemById($itemId);
-                   $objView->displayUpdate($objItem);
+                    $objItem = $objModel->getItemById($itemId);
+                    if($entite == 'prospect'|| $entite == 'client'){
+                        $objView->displayUpdate($objItem, self::$lstCateg);
+                    }else{
+                        $objView->displayUpdate($objItem);
+                    }
                 }
                 break;
 
             case 'frmDel':
                 if ($itemId <> ''){
                    $objItem = $objModel->getItemById($itemId);
-                   $objView->displayDelete($objItem);
+                   $objView->displayDelete($objItem, self::$lstCateg);
                 }
                 break;
                 
             case 'add':
                     $item2add = $cleanPost;
                     //$objView->displayForm();
-                    $objModel->Upsert($item2add);
+                    $objModel->insert($item2add);
                 break;
                 
             case 'maj':
                 if (isset($cleanPost['id'])){
-                    $objModel->Upsert($cleanPost);
+                    $objModel->update($cleanPost);
                 }
                 break;
             
             case 'del':
                 if (isset($cleanPost['id'])){
-                    $objModel->Delete($cleanPost);
+                    $objModel->delete($cleanPost);
                 }
                 break; 
 

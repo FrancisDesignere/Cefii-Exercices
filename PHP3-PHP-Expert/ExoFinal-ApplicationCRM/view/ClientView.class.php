@@ -5,27 +5,25 @@ class ClientView extends PersonneView
     function __construct() {
         parent::__construct();
     }
-    
-    public function displayAdd() {
-        $this->feelFrm($personne,true);
-        $this->frm = str_replace('{postAction}', './index.php?action=add&entite=personne', $this->frm);
-        $this->frm = str_replace('{lblBouton}', 'Ajouter', $this->frm);
-        $this->frm = str_replace('readonly', '', $this->frm);
-        $this->displayForm();        
+    public function displayAdd($categories) {
+        $this->frm = str_replace('Renseignements Personne', 'Renseignements Client', $this->frm);
+        parent::displayAdd($categories);
     }
     
-    public function displayUpdate($personne) {
-        $this->feelFrm($personne);
-        $this->frm = str_replace('{postAction}', './index.php?action=maj&entite=personne', $this->frm);
-        $this->frm = str_replace('{lblBouton}', 'Mettre à jour', $this->frm);
-        $this->frm = str_replace('readonly', '', $this->frm);
-        $this->displayForm();        
-    }
+    public function displayUpdate($personne, $categories) {
+        $this->frm = str_replace('Renseignements Personne', 'Renseignements Client', $this->frm);
+        parent::displayUpdate($personne, $categories);
+    }    
 
-    public function displayDelete($personne) {
-        $this->feelFrm($personne);
-        $this->frm = str_replace('{lblBouton}', 'Supprimer', $this->frm);
-        $this->frm = str_replace('{postAction}', './index.php?action=del&entite=personne', $this->frm);
-        $this->displayForm();        
+    public function displayDelete($personne, $categories) {
+        $this->frm = str_replace('Renseignements Personne', 'Client a supprimer', $this->frm);
+        parent::displayDelete($personne, $categories);
+    }  
+    /*
+    protected function addLstCateg($categories, $personne=null, $SelectedCateg=2){
+        parent::addLstCateg($categories, $personne, $SelectedCateg);
     }
+     * 
+     */
+    
 }

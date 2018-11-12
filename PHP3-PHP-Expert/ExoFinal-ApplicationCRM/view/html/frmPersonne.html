@@ -42,9 +42,21 @@
                 </div>
                 <!-- commentaire -->
                 <div class="form-group" > 
-                    <label for="commentaire"class="col-sm-3 control-label">Commentaire </label>
+                    <label for="commentaire" class="col-sm-3 control-label">Commentaire </label>
                     <div class="col-sm-9">
                         <input id="commentaire" name="commentaire" readonly type="text" class="form-control" placeholder="un commentaire ?" value="{commentaire}">
+                    </div>
+                </div>
+                
+                <!-- pose du select encadrant les <options> 
+                qui seront posée par PersonneView et remplaceront {lstCateg}-->                
+                <div class="form-group" {displayCateg}>
+                    <label for="fk_id_categories" class="col-sm-3 control-label">Catégorie</label>
+                    <div class="col-sm-9">                    
+                        <select disabled name="fk_id_category" size="4" class="form-control">
+                            <!-- les options correspondant à chaque catégories inserée ici -->
+                            {lstCateg} 
+                        </select>
                     </div>
                 </div>
                 <button id="btnValid" type="submit" class="btn btn-primary pull-right">{lblBouton}</button>

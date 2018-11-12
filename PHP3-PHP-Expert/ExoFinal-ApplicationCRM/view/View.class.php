@@ -45,6 +45,11 @@ class View
         $entete = true;
         $token = uniqid(rand(), true);
         $_SESSION['token']= $token;
+
+        // ajout d'un boutou pour ajout d'un item
+        $this->page .= '<h3>Liste des '.$entite.'s</h3>';
+        
+        // construction d'un tableau pour afficher la liste des enregistrements
         $this->page .= '<table class="table table-bordered table-striped table-condensed">';
         foreach ($list as $item) {
             //gestion de la ligne d'entete (nom des attributs au passage du premier item)
@@ -87,11 +92,8 @@ class View
         $this->page .= "</table>";
         
         // ajout d'un boutou pour ajout d'un item
-echo $entite;        
-        if($entite == 'prospect' || $entite=='client'){$entite='personne';}
         $this->page .= "<div>";
         $this->page .= '<a href="./?action=frm&entite='.$entite.'"><button><i class="glyphicon glyphicon-plus"></i> Ajout </button></a>'; 
-//        $this->page .= '<a href="./?action=frm&entite="'.$entite.'"><button><i class="glyphicon glyphicon-plus"></i> Ajout </button></a>'; 
         $this->page .= "<div>";
         $this->display();
     }
