@@ -7,9 +7,12 @@ class PersonneView extends View
         $this->frm = file_get_contents('view/html/frmPersonne.html');
     }
     
-    public function displayAdd($categories) {
-        //$this->feelFrm();
-        $this->feelFrm($categories);
+    /*
+     *  à noter : le remplacement de {postAction} est déjà fait par la classe enfant, il n'est mis là 
+     *  que pour couvrir le cas hypothétique de l'utilisation de cette classe en direct
+     */
+    public function displayAdd($categories, $defaultCateg=1) {
+        $this->feelFrm($categories, null, $defaultCateg );
         $this->frm = str_replace('{postAction}', './index.php?action=add&entite=personne', $this->frm);
         $this->frm = str_replace('{lblBouton}', 'Ajouter', $this->frm);
         $this->frm = str_replace('readonly', '', $this->frm);
@@ -17,6 +20,10 @@ class PersonneView extends View
         $this->displayForm();
     }
     
+    /*
+     *  à noter : le remplacement de {postAction} est déjà fait par la classe enfant, il n'est mis là 
+     *  que pour couvrir le cas hypothétique de l'utilisation de cette classe en direct
+     */
     public function displayUpdate($personne, $categories) {
         $this->feelFrm($categories, $personne);
         $this->frm = str_replace('{postAction}', './index.php?action=maj&entite=personne', $this->frm);
@@ -30,12 +37,11 @@ class PersonneView extends View
         //$this->feelFrm($personne);
         $this->feelFrm($categories, $personne);
         $this->frm = str_replace('{lblBouton}', 'Supprimer', $this->frm);
-        $this->frm = str_replace('{postAction}', './index.php?action=del&entite=personne', $this->frm);
+////        $this->frm = str_replace('{postAction}', './index.php?action=del&entite=personne', $this->frm);
         $this->displayForm();        
     }
     
-    protected function feelFrm($categories, $personne = null){  
- 
+    protected function feelFrm($categories, $personne = null, $defaultCateg=1){  
         if ($personne == null){
             $this->frm = str_replace('{id}', '', $this->frm);
             $this->frm = str_replace('{nom}', '', $this->frm);
@@ -55,11 +61,11 @@ class PersonneView extends View
         }
         // pour le select des catégories, on remplie une variable avec l'option pour chaque catég
         // (cf fonction addLstCateg) et on remplace l'étiquette lstCateg du template
-        $lstCateg = $this->addLstCateg($categories, $personne);
+        $lstCateg = $this->addLstCateg($categories, $personne, $defaultCateg);
         $this->frm = str_replace('{lstCateg}', $lstCateg , $this->frm);       
 }    
     
-    protected function addLstCateg($categories, $personne=null, $SelectedCateg=1){
+    protected function addLstCateg($categories, $personne=null, $defaultCateg=1){
         $optsCateg ='';
         foreach($categories as $categ){
             // la variable toBeSelected posera 'selected' sur la catégorie actuel de l'item
@@ -70,7 +76,7 @@ class PersonneView extends View
                     $toBeSelected='selected';
                 }
             }else{ // cas des création, le selected sera posé sur la première catégorie
-                if ($categ['id'] == $SelectedCateg ){
+                if ($categ['id'] == $defaultCateg ){
                     $toBeSelected='selected';
                 }
             }

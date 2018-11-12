@@ -85,9 +85,7 @@ class Controller
                 break;
                 
             case 'add':
-                    $item2add = $cleanPost;
-                    //$objView->displayForm();
-                    $objModel->insert($item2add);
+                    $objModel->insert($cleanPost);
                 break;
                 
             case 'maj':
