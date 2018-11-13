@@ -1,6 +1,6 @@
 <?php
 
-class View
+abstract class View
 {
     protected $page;
     protected $frm;
@@ -69,18 +69,20 @@ class View
                     // les bouton correspondant aux actions 
                     $this->page .= '<button form="frmUpdt'.$item['id'].'" id="validModifItem" type="submit" title="modifier" ><span class="glyphicon glyphicon-pencil" ></span></button>'; 
                     $this->page .= '<button form="frmDel'.$item['id'].'" id="validModifItem" type="submit" title="modifier" ><span class="glyphicon glyphicon-trash" ></span></button>'; 
-                $this->page .= "</td></div>";
+                $this->page .= "</td>";
+                
                 // les formulaires correspondants aux actions (cachés, mais nécessaires...)
-                //le formulaire de maj
-                $this->page .= '<div class="display-inline"><form id="frmUpdt'.$item['id'].'" action="./index.php?action=frm&entite='.$entite.'" method="POST">';
+                $this->page .= '<div class="frmAction display-inline">';
+                    //le formulaire de maj
+                    $this->page .= '<form id="frmUpdt'.$item['id'].'" action="./index.php?action=frm&entite='.$entite.'" method="POST">';
                     $this->page .= '<input type="hidden" name="itemId" value="'.$item['id'].'">';
                     $this->page .= '<input type="hidden" name="token" value="'.$token.'">';
-                $this->page .= '</form></div>';
-                //formulaire de suppression
-                $this->page .= '<div class="display-inline"><form id="frmDel'.$item['id'].'" action="./index.php?action=frmDel&entite='.$entite.'" method="POST">';
+                    $this->page .= '</form>';
+                    //formulaire de suppression
+                    $this->page .= '<form id="frmDel'.$item['id'].'" action="./index.php?action=frmDel&entite='.$entite.'" method="POST">';
                     $this->page .= '<input type="hidden" name="itemId" value="'.$item['id'].'">';
                     $this->page .= '<input type="hidden" name="token" value="'.$token.'">';
-                $this->page .= '</form>'; 
+                $this->page .= '</form></div>'; 
 
             $this->page .= "</tr>";
         }

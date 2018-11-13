@@ -14,3 +14,7 @@ footer{
     width: 100%;
     line-height: 2em;
 }
+
+.frmAction{
+    visibility: hidden;
+}

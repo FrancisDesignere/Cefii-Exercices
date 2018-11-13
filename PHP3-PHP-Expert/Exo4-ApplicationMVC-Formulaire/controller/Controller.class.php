@@ -6,14 +6,12 @@
  */
 class Controller 
 {
-    private $view;
-    private $model;
+////    private $view;
  
     
     public function __construct() 
     {
-        $this->view = new View();
-        $this->model = new Model();
+////        $this->view = new View();
     }
     
     public function dispatch() 
@@ -30,40 +28,20 @@ class Controller
         }else{
             $itemId = '';
         }
-        
-        if(($_SERVER['HTTP_HOST']=="cefii-developpements.fr")){
-            // solution moins évolutive pour le serveur cefii 
-            // car la solution dynamique (instanciation d'une classe par un nom dans une variable) 
-            // ne marche pas sur le serveur cefii ??
-            if ($entite=='produit'){
-                $objModel = new ProduitModel();
-                $objView = new ProduitView();
-            }elseif($entite=='fournisseur'){
-                $objModel = new FournisseurModel();
-                $objView = new FournisseurView();
-            }else{
-                $objModel = new UserModel();
-                $objView = new UserView();
-            }
 
-        }else{
-            // la solution d'instanciation avec un nom de classe dynamique marche bien en local 
-            $strClassModel = $entite.'Model';// autres tentatives '\\'.$entite.'Model'; ou '\\'.__NAMESPACE__.'\\'.$entite.'Model';
-            $objModel = new $strClassModel();
-            /* autre solution essayée, mais tout aussi infructueuse
-              $reflect = new ReflectionClass($strClassModel);
-              $objModel = $reflect->newInstance();
-             */
-            
-            //à faire à l'identique pour les 
-            $strClassView = $entite.'View';
-            $objView = new $strClassView();
-        }
+        // instanciation avec un nom de classe dynamique, en fonction de l'entité
+        $strClassModel = ucfirst($entite).'Model';// autres tentatives '\\'.$entite.'Model'; ou '\\'.__NAMESPACE__.'\\'.$entite.'Model';
+        $objModel = new $strClassModel();
+
+        $strClassView = ucfirst($entite).'View';
+        $objView = new $strClassView();
+
         switch ($action) {
             
             case 'list': //les listes sont construite pas le Viewer générique 
-                $list = $this->model->getList($entite);
-                $this->view->displayList($list, $entite);
+                $list = $objModel->getList($entite);
+////                $this->view->displayList($list, $entite);
+                $objView->displayList($list, $entite);
                 break;
             
             case 'frm':
@@ -83,32 +61,33 @@ class Controller
                 break;
                 
             case 'add':
-                    $item2add = $cleanPost;
-                    //$objView->displayForm();
-                    $objModel->Upsert($item2add);
+                    $objModel->insert($cleanPost);
                 break;
                 
             case 'maj':
                 if (isset($cleanPost['id'])){
-                    $objModel->Upsert($cleanPost);
+                    $objModel->update($cleanPost);
                 }
                 break;
             
             case 'del':
                 if (isset($cleanPost['id'])){
-                    $objModel->Delete($cleanPost);
+                    $objModel->delete($cleanPost);
                 }
                 break; 
 
             default:
-                $this->view->displayPageHtml($action);
+////                $this->view->displayPageHtml($action);
+                $objView->displayPageHtml($action);
                 break;
         }
 
         //si action upsert ou delete, retour vers la liste correspondante
         if ($action == 'add' || $action =='del' || $action =='maj'){
-            $list = $this->model->getList($entite);
-            $this->view->displayList($list, $entite);
+            $list = $objModel->getList($entite);
+////                $this->view->displayList($list, $entite);
+                $objView->displayList($list, $entite);
+
         }
     }    
 }    

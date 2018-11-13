@@ -8,13 +8,6 @@ class FournisseurModel extends Model
 {
     static $table = 'fournisseur';
     
-    private function getUserByData($societe) {
-        $strReq = "SELECT * FROM ".self::$table." where societe like :societe limit 0,1";
-        $prep = $this->singleConnection->prepare($strReq);
-        $prep->execute(array(':societe'=>$societe, ));
-        return $ObjUsr = $prep->fetch(PDO::FETCH_OBJ);
-    }
-
         public function getItemById($id) {
         $strReq = "SELECT * FROM ".self::$table." where id = :id";
         $prep = $this->singleConnection->prepare($strReq);
@@ -22,29 +15,35 @@ class FournisseurModel extends Model
         return $ObjItem = $prep->fetch(PDO::FETCH_OBJ);
     }
     
-    public function Upsert($item){
+    public function insert($item) {
         if ($_SESSION['token']==$item['token']){
-            //on recherche si user (homonyme) déjà présent 
-            $ObjItem = $this->getUserByData($item['societe']);
+            $strReq="INSERT INTO ".self::$table." (`societe`, `adresse`, `code_postal`, `ville`, `commentaire`)";
+            $strReq.=" VALUES (:societe, :adresse, :code_postal, :ville, :commentaire)";
+            $strReq.=" ON DUPLICATE KEY UPDATE `adresse`=:adresse, `code_postal`=:code_postal, `ville`=:ville, `commentaire`=:commentaire ";
+            $prep = $this->singleConnection->prepare($strReq);
+            $prep->bindParam(':societe', $item['societe']);
+            $prep->bindParam(':adresse', $item['adresse']);
+            $prep->bindParam(':code_postal', $item['code_postal']);
+            $prep->bindParam(':ville', $item['ville']);
+            $prep->bindParam(':commentaire', $item['commentaire']);            
+            $prep->execute();
+            return $prep->rowCount();        
+        }
+    }
 
-            // suivant le retour, on sait s'il faut créer l'article ou le modifier
-            if($ObjItem==false){ // cas d'une création d'utilisateur
-                $reqPrepIns = $this->singleConnection->prepare("INSERT INTO ".self::$table." (`societe`, `adresse`, `code_postal`, `ville`, `commentaire`) VALUES (:societe, :adresse, :code_postal, :ville, :commentaire)");
-                $reqPrepIns->execute(array(':societe'=>$item['societe'], ':adresse'=>$item['adresse'], 'code_postal'=>$item['code_postal'], 'commentaire'=>$item['commentaire'], 'ville'=>$item['ville']));
-                return $reqPrepIns->rowCount();
-            }elseif(count($ObjItem)==1){// cas d'une mise à jour d'utilisateur
-                $strReq="UPDATE ".self::$table." SET `societe` = :societe, `adresse` = :adresse, `code_postal` = :code_postal, `commentaire` = :commentaire , `ville` = :ville ";
-                $strReq.="WHERE `id`= :id";
-                $prep = $this->singleConnection->prepare($strReq);
-                $prep->bindParam(':societe', $item['societe']);
-                $prep->bindParam(':adresse', $item['adresse']);
-                $prep->bindParam(':code_postal', $item['code_postal']);
-                $prep->bindParam(':ville', $item['ville']);
-                $prep->bindParam(':commentaire', $item['commentaire']);
-                $prep->bindParam(':id', $item['id']);
-                $prep->execute();
-                return $prep->rowCount();
-            }
+    public function update($item){
+        if ($_SESSION['token']==$item['token']){
+            $strReq="UPDATE ".self::$table." SET `societe` = :societe, `adresse` = :adresse, `code_postal` = :code_postal, `commentaire` = :commentaire , `ville` = :ville ";
+            $strReq.="WHERE `id`= :id";
+            $prep = $this->singleConnection->prepare($strReq);
+            $prep->bindParam(':societe', $item['societe']);
+            $prep->bindParam(':adresse', $item['adresse']);
+            $prep->bindParam(':code_postal', $item['code_postal']);
+            $prep->bindParam(':ville', $item['ville']);
+            $prep->bindParam(':commentaire', $item['commentaire']);
+            $prep->bindParam(':id', $item['id']);
+            $prep->execute();
+            return $prep->rowCount();
         }
     }
     

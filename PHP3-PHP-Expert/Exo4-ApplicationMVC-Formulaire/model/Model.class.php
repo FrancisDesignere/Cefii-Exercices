@@ -4,7 +4,7 @@
  *
  * @author francis
  */
-class Model 
+abstract class Model 
 {
     public $singleConnection;
     static $tablesAccessible = "|user|produit|fournisseur|";
@@ -28,7 +28,7 @@ class Model
     * 
     * @return type
     */
-    public function getList($table) {
+   public function getList($table) {
         $list= array();
         if($this->checkTable($table)){
             $requete = "SELECT * FROM ".$table;
