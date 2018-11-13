@@ -7,12 +7,10 @@
 class Controller 
 {
     private $view;
-    private $model;
     
     public function __construct() 
     {
         $this->view = new View();
-        $this->model = new Model();
     }
     
     public function dispatch() 
@@ -20,50 +18,39 @@ class Controller
         $action = (isset($_GET['action']))?$_GET['action']:"accueil";
         $entite = (isset($_GET['entite']))?$_GET['entite']:"user";
         
-        if(($_SERVER['HTTP_HOST']=="cefii-developpements.fr")){
-            // en dur pour le serveur cefii car la solution dynamique ne marche pas ??
-            $objModel = new UserModel();
-            //$objView = new userView;
-            
-        }else{
-            // la solution d'instanciation avec un nom de classe dynamique marche bien en local 
-            $strClassModel = $entite.'Model';// autres tentatives '\\'.$entite.'Model'; ou '\\'.__NAMESPACE__.'\\'.$entite.'Model';
-            $objModel = new $strClassModel();
-            /* autre solution essayée, mais tout aussi infructueuse
-              $reflect = new ReflectionClass($strClassModel);
-              $objModel = $reflect->newInstance();
-             */
-            
-            //à faire à l'identique pour les 
-            $strClassView = $entite.'View';
-            //$objView = new $strClassView();
-        }
+        // instanciation avec un nom de classe dynamique, en fonction de l'entité
+        $strClassModel = ucfirst($entite).'Model';
+        $objModel = new $strClassModel();
+        //à faire à l'identique pour les 
+        $strClassView = ucfirst($entite).'View';
+        //$objView = new $strClassView();
 
+            
         switch ($action) {
             case 'list':
-                $list = $this->model->getList($entite);
+                $list = $objModel->getList($entite);
                 $this->view->displayList($list);
                 break;
             
             case 'add':
                 ////$newItem provisoirement setté en dur, à remplacer par $newItem = new $classView();
-                $newItem =  array('nom'=>'toto', 'prenom'=>'titi', 'ville'=>'tata');
+                $newItem =  array('nom'=>'toto', 'prenom'=>'titi', 'ville'=>'tatu');
                 
-                $objModel->Upsert($newItem);
+                $objModel->insert($newItem);
                 break;
 
             case 'maj':
                  ////$newItem provisoirement setté en dur, à remplacer par $newItem = new $classView();
-                $majItem =  array('nom'=>'Désignère', 'prenom'=>'Francis', 'ville'=>date("H:i:s"));
+                $majItem =  array('id'=>1,'nom'=>'Désignère', 'prenom'=>'Francis', 'ville'=>date("H:i:s"));
         
-                $objModel->Upsert($majItem);
+                $objModel->update($majItem);
                 break;
             
             case 'del':
                 ////$newUsr provisoirement setté en dur, l'id sera à récupérer un post;
                 $item2del = 3;
 
-                $objModel->Delete($item2del);
+                $objModel->delete($item2del);
                 break;                
                 
             default:
@@ -73,7 +60,7 @@ class Controller
 
         //si action upsert ou delete, retour vers la liste correspondante
         if ($action == 'add' || $action =='del' || $action =='maj'){
-            $list = $this->model->getList($entite);
+            $list = $objModel->getList($entite);
             $this->view->displayList($list);   
         }
     }    
