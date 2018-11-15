@@ -1,26 +1,45 @@
 <?php
 /**
- *  class du controller principal avec pour role principal 
- * le dispactch vers les différents Model et Viewer
- *  
+ * Controller a pour role principal le dispactch vers les différents Model et Viewer
+ * 
+ * @author francis
  */
 class Controller 
 {
-    private $view;
     private $model;
+    /**
+     * lstCateg contient la liste des categories récupérée par requete à l'instanciation et conservée.
+     */
     static $lstCateg;
-    
+
+    /**
+     * le contructeur de la classe controller 
+     * 
+     *      il récupère notamment la liste des catégories, qui sera passée aux ClientView et ProspectView 
+     *      pour la construction du select des categories
+     * 
+     */    
     public function __construct() 
     {
-        $this->view = new View();
         $this->model = new Model();
         self::$lstCateg = $this->model->getList('category');
     }
     
+    /**
+     * dispatche au viewer et/ou modeler correspondant suivant la demande recue par get ou post
+     * 
+     *      Le demandes de simple navigation sont recues par get, les demandes entrainant des changements
+     *      sont recus par post.
+     *      Les différentes demandes correspondent soit à l'affichage des listes ou des formulaires
+     *      soit à actions de mise à jour, création, suppression
+     *      suivant le cas, le dispatch demande donc des affichages de formulaires aux viewers
+     *      ou bien des actions à effectuer en base aux modelers
+     */
     public function dispatch() 
     {
         $cleanGet = filter_input_array(INPUT_GET);
         $cleanPost = filter_input_array(INPUT_POST);
+        
         $action = (isset($cleanGet['action']))?$cleanGet['action']:"accueil";
         $entite = (isset($cleanGet['entite']))?$cleanGet['entite']:"Category";
         if(isset($cleanPost['itemId'])) {
@@ -29,86 +48,77 @@ class Controller
             $itemId = '';
         }
         
-        if(($_SERVER['HTTP_HOST']=="cefii-developpements.fr")){
-            // solution moins évolutive pour le serveur cefii 
-            // car la solution dynamique (instanciation d'une classe par un nom dans une variable) 
-            // ne marche pas sur le serveur cefii ??
-            if ($entite=='produit'){
-                $objModel = new ProduitModel();
-                $objView = new ProduitView();
-            }elseif($entite=='fournisseur'){
-                $objModel = new FournisseurModel();
-                $objView = new FournisseurView();
-            }else{
-                $objModel = new UserModel();
-                $objView = new UserView();
-            }
-
+        // instanciation avec un nom de classe dynamique, en fonction de l'entité
+        // pour la classe model à utiliser
+        if($entite=='client' || $entite=='prospect'){
+            // une spécifité pour les  entités client et prospect qui s'appuie sur le model personne
+            $strClassModel= 'PersonneModel';
         }else{
-            // la solution d'instanciation avec un nom de classe dynamique marche bien en local 
-            $strClassModel = $entite.'Model';// autres tentatives '\\'.$entite.'Model'; ou '\\'.__NAMESPACE__.'\\'.$entite.'Model';
-            $objModel = new $strClassModel();
-            /* autre solution essayée, mais tout aussi infructueuse
-              $reflect = new ReflectionClass($strClassModel);
-              $objModel = $reflect->newInstance();
-             */
-            
-            //à faire à l'identique pour les 
-            $strClassView = $entite.'View';
-            $objView = new $strClassView();
+            $strClassModel = ucfirst($entite).'Model';            
         }
+        $entModel = new $strClassModel();
+        
+        // pour la classe view à utiliser
+        $strClassView = ucfirst($entite).'View';
+        $entView = new $strClassView();
+        
+        
+        // prise ne compte des différents cas d'action demandées
         switch ($action) {
             
-            case 'list': //les listes sont construite pas le Viewer générique 
+            case 'list': //les listes sont construites pas le Viewer générique 
                 $list = $this->model->getList($entite);
-                $this->view->displayList($list, $entite);
+                $entView->displayList($list, $entite);
                 break;
             
             case 'frm':
                 if ($itemId == ''){
-                    $objView->displayAdd(self::$lstCateg);                
+                    $entView->displayAdd(self::$lstCateg);                
                 }else{
-                    $objItem = $objModel->getItemById($itemId);
+                    $objItem = $entModel->getItemById($itemId);
                     if($entite == 'prospect'|| $entite == 'client'){
-                        $objView->displayUpdate($objItem, self::$lstCateg);
+                        $entView->displayUpdate($objItem, self::$lstCateg);
                     }else{
-                        $objView->displayUpdate($objItem);
+                        $entView->displayUpdate($objItem);
                     }
                 }
                 break;
 
             case 'frmDel':
                 if ($itemId <> ''){
-                   $objItem = $objModel->getItemById($itemId);
-                   $objView->displayDelete($objItem, self::$lstCateg);
+                   $objItem = $entModel->getItemById($itemId);
+                   $entView->displayDelete($objItem, self::$lstCateg);
                 }
                 break;
                 
             case 'add':
-                    $objModel->insert($cleanPost);
+                    $entModel->insert($cleanPost);
                 break;
                 
             case 'maj':
                 if (isset($cleanPost['id'])){
-                    $objModel->update($cleanPost);
+                    $entModel->update($cleanPost);
                 }
                 break;
             
             case 'del':
                 if (isset($cleanPost['id'])){
-                    $objModel->delete($cleanPost);
+                    $entModel->delete($cleanPost);
                 }
                 break; 
 
             default:
-                $this->view->displayPageHtml($action);
+                $entView->displayPageHtml($action);
                 break;
         }
 
         //si action upsert ou delete, retour vers la liste correspondante
-        if ($action == 'add' || $action =='del' || $action =='maj'){
+        if ($action == 'add' || $action =='del' || $action =='maj'){        
+            // une condition spécifique pour envoyer sur la bonne liste lors des passages de prospect à client
+            if((isset($cleanPost['btnNewClient'])||(isset($cleanPost['fk_id_category']) && ($cleanPost['fk_id_category']>1) ))){$entite = 'client';}
+            
             $list = $this->model->getList($entite);
-            $this->view->displayList($list, $entite);
+            $entView->displayList($list, $entite);
         }
     }    
 }    

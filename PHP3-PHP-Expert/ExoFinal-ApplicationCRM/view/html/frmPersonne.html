@@ -1,6 +1,8 @@
         <div class='container'>
             <form class="form-horizontal col-sm-6" action="{postAction}" method="POST">
-                <legend>Renseignements Personne</legend>
+                <legend>Renseignements Personne
+                    <button id="btnNewClient" style="display:none" type="submit" name="btnNewClient" class="btn btn-info pull-right">Passer en nouveau client <i title="revient à affecter le client à la catégorie en question. Mais vous pourriez aussi choisir une autre catégorie via le formulaire ci dessous" class="glyphicon glyphicon-question-sign"></i></button>
+                </legend>
                 <!-- le token et l'id sont présent mais cachés -->
                 <input type="hidden" name="token" value="{token}">
                 <input id="id" name="id" type="text" hidden value="{id}">
@@ -59,6 +61,7 @@
                         </select>
                     </div>
                 </div>
-                <button id="btnValid" type="submit" class="btn btn-primary pull-right">{lblBouton}</button>
+                <input type="button" id="btnAnnuler" class="btn btn-danger" value="Annuler" onclick="history.back()"></input> 
+                <button id="btnValid" type="submit" name="maj" class="btn btn-primary pull-right">{lblBouton}</button> 
             </form>    
         </div>

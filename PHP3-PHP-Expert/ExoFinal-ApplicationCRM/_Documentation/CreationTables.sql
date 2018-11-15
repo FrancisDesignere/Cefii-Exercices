@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `crm_personne` (
   `adresse` VARCHAR(300) NULL,
   `code_postal` VARCHAR(5) NULL,
   `ville` VARCHAR(100) NULL,
-  `commentaire` VARCHAR(45) NULL,
+  `commentaire` VARCHAR(500) NULL,
   PRIMARY KEY (`id_personne`),
   CONSTRAINT `fk_crm_personne_crm_category`
     FOREIGN KEY (`fk_id_category`)
@@ -29,6 +29,9 @@ CREATE TABLE IF NOT EXISTS `crm_personne` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+ALTER TABLE `crm_personne` 
+ADD UNIQUE INDEX `foyer_unique` (`nom` ASC, `adresse` ASC, `code_postal` ASC);
+;
 -- -----------------------------------------------------
 -- Creation de la vue client 
 -- -----------------------------------------------------
@@ -72,7 +75,7 @@ CREATE VIEW `crm_prospect` AS
 -- peuplement des données (catégories) initiales 
 -- -----------------------------------------------------
 INSERT INTO `crm_category` (`nom`, `description`) VALUES ('prospect', 'la personne n\'est pas encore cliente');
-INSERT INTO `crm_category` (`nom`, `description`) VALUES ('client essayeur', 'le client n\'est pour l\'instant venu qu\'une fois');
+INSERT INTO `crm_category` (`nom`, `description`) VALUES ('nouveau client', 'le client n\'est pour l\'instant venu qu\'une fois');
 INSERT INTO `crm_category` (`nom`, `description`) VALUES ('client occasionel', 'client ne venant qu\'une fois par trimestre');
 INSERT INTO `crm_category` (`nom`, `description`) VALUES ('client régulier', 'client fidèle venant au moins une fois par mois');
 INSERT INTO `crm_category` (`nom`, `description`) VALUES ('client inactif', 'client non actif depuis au moins six mois');

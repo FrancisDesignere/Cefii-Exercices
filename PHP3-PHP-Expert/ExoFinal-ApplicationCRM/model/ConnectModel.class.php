@@ -5,9 +5,19 @@
  */
 class ConnectModel
 {
-    private static $instancePDO; // static en static donc non lié à classe pas à un objet
+    /**
+     * $instancePDO est conservée en static pour servir de témoin à une nouvelle instanciation
+     */
+    private static $instancePDO; // static donc non lié à classe pas à un objet
+    /**
+     * $connexion à la base de donnée
+     */
     public static $connexion;
     
+    /**
+     * le construteur ouvre la connection sur la BDD approprié en fonction du serveur http d'ou vient la demande
+     * et attribut la connexion à l'attribut static $connexion
+     */
     private function __construct(){ // private pour ne pas être instanciée
         // definie la base où se conecter en fonction d'ou est l'execution
         if (($_SERVER['HTTP_HOST']=="exoscefii") || ($_SERVER['HTTP_HOST']=="localhost")) {
@@ -37,13 +47,19 @@ class ConnectModel
         }   
     }
     
+    /**
+     * cette méthode permet de checker si la méthode était déjà instancier ou non
+     * et retourne cette instance (dont la connexion)
+     * 
+     * @return obj self 
+     */
     public static function getInstance(){
         if (!isset(self::$instancePDO)){
             self::$instancePDO = new self; 
         }
         return self::$instancePDO;
     }
-
-    private  function __clone()  {} // privatiser cette méthode la « désactive » pour le code extérieur 
+    // __clone est privatisée pour être «désactiver» et éviter donc une autre connexion
+    private  function __clone()  {} 
     
 }
