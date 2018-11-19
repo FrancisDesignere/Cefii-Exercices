@@ -1,0 +1,21 @@
+/* 
+    Feuille de style complémentaire
+    (la majorité des styles provenant de bootstrap)
+    Author     : francis
+*/
+section{
+    padding-top: 70px;
+}
+
+footer{
+    text-align: center;
+    background-color: #f5f5f5;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: 2em;
+}
+
+.frmAction{
+    visibility: hidden;
+}
