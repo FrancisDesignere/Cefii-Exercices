@@ -7,8 +7,9 @@ spl_autoload_register(function($classe){
         require 'view/' . $classe . '.class.php';             
     }elseif(strpos($classe, 'Model')!==false){
         require 'model/' . $classe . '.class.php';             
+    }else{
+        require './' . $classe . '.class.php';     
     }
  });
 
-$main = new Controller();
-$main->dispatch();
+$main = new Dispatcher();

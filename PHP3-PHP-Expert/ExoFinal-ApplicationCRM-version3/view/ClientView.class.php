@@ -58,4 +58,9 @@ class ClientView extends PersonneView
         $this->frm = str_replace('{postAction}', './index.php?action=del&entite=client', $this->frm);        
         parent::displayDelete($personne, $categories);
     }  
+
+    public function displayList($list, $entite) {
+        parent::displayList($list, $entite);
+    }    
+    
 }

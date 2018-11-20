@@ -51,7 +51,7 @@ abstract class PersonneView extends View
      */
     public function displayUpdate($personne, $categories) {
         $this->feelFrm($categories, $personne);
-        $this->frm = str_replace('{postAction}', './index.php?action=maj&entite=personne', $this->frm);
+        $this->frm = str_replace('{postAction}', './index.php?action=del&entite=personne', $this->frm);
         $this->frm = str_replace('{lblBouton}', 'Mettre à jour', $this->frm);
         $this->frm = str_replace('readonly', '', $this->frm);
         $this->frm = str_replace('disabled', '', $this->frm);

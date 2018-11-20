@@ -20,10 +20,10 @@ class CategoryModel extends Model
      * @param int $id
      * @return obj Category $ObjItem
      */
-    public function getItemById($id) {
+    public function getItemById($post) {
         $strReq = "SELECT * FROM ".self::$table." where id = :id";
         $prep = $this->singleConnection->prepare($strReq);
-        $prep->execute(array(':id'=>$id));
+        $prep->execute(array(':id'=>$post['itemId']));
         return $ObjItem = $prep->fetch(PDO::FETCH_OBJ);
     }
     
@@ -51,7 +51,7 @@ class CategoryModel extends Model
      * @param array $item un tableau correspondant aux données à mettre à jour + l'id
      * @return int le nombre correspondant au nombre d'enregistrement mis à jour (1 si OK)
      */
-    public function Update($item){
+    public function Update($item){  
         if ($_SESSION['token']==$item['token']){
             $strReq="UPDATE ".self::$table." SET `nom` = :nom, `description` = :description ";
             $strReq.="WHERE `id`= :id";

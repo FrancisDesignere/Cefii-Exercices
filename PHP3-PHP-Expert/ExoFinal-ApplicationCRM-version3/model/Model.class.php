@@ -6,7 +6,7 @@
  *
  * @author francis
  */
-class Model 
+abstract class Model 
 {
     /**
      * $singleConnection est l'object PDO correspondant à la connection unique qui sera réutilisée
@@ -40,7 +40,7 @@ class Model
     * @return string[] un tableau avec la liste de tous les enregistrements (et tous leur attributs)
     */
     public function getList($table) {
-        $list= array();
+       $list= array();
         $table = 'crm_'.$table; 
         if($this->checkTable($table)){
             $requete = "SELECT * FROM ".$table;

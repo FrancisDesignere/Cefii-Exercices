@@ -21,10 +21,10 @@ class PersonneModel extends Model
      * @param int $id
      * @return obj Personne $ObjItem
      */
-        public function getItemById($id) {
+        public function getItemById($post) {
         $strReq = "SELECT * FROM ".self::$table." where id = :id";
         $prep = $this->singleConnection->prepare($strReq);
-        $prep->execute(array(':id'=>$id));
+        $prep->execute(array(':id'=>$post['itemId']));
         return $ObjItem = $prep->fetch(PDO::FETCH_OBJ);
     }
 

@@ -105,7 +105,7 @@ abstract class View
                     // les boutonss correspondant aux actions (avec spécificité pour les delete interdit pour categ 1 et 2)
                     $this->page .= '<button form="frmUpdt'.$item['id'].'" id="validModifItem" type="submit" title="modifier" ><span class="glyphicon glyphicon-pencil" ></span></button>'; 
                     if ($entite!='category' || $item['id']>2){// on ne propose pas la poubelle pour les 2 première catégories
-                        $this->page .= '<button form="frmDel'.$item['id'].'" id="validModifItem" type="submit" title="modifier" ><span class="glyphicon glyphicon-trash" ></span></button>';                     
+                        $this->page .= '<button form="frmDel'.$item['id'].'" id="validModifItem" type="submit" title="supprimer" ><span class="glyphicon glyphicon-trash" ></span></button>'; 
                     }
                 $this->page .= "</td>";
                 

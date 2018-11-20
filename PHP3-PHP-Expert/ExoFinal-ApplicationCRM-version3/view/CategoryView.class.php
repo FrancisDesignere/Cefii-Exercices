@@ -76,5 +76,9 @@ class CategoryView extends View
         $this->frm = str_replace('{nom}', $category->nom, $this->frm);
         $this->frm = str_replace('{description}', $category->description, $this->frm);
     }
-     
+    
+    public function displayList($list, $entite) {
+        parent::displayList($list, $entite);
+    }
+    
 }
