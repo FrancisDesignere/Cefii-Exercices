@@ -12,21 +12,7 @@ class PersonneModel extends Model
     /**
      * $table contient le nom de la table qui sera requetée
      */
-    static $table = 'crm_personne';
-
-
-    /**
-     * Methode retournant un objet correspondant à la personne requetée catégorie
-     * 
-     * @param int $id
-     * @return obj Personne $ObjItem
-     */
-        public function getItemById($post) {
-        $strReq = "SELECT * FROM ".self::$table." where id = :id";
-        $prep = $this->singleConnection->prepare($strReq);
-        $prep->execute(array(':id'=>$post['itemId']));
-        return $ObjItem = $prep->fetch(PDO::FETCH_OBJ);
-    }
+    protected $table = 'crm_personne';
 
     /**
      * Methode lancant la requete de création d'une personne en base
@@ -36,7 +22,7 @@ class PersonneModel extends Model
      */    
     public function insert($item) {
         if ($_SESSION['token']==$item['token']){
-            $strReq = "INSERT INTO ".self::$table." (`nom`, `prenom`, `adresse`, `code_postal`, `ville`, `commentaire`, `fk_id_category`) ";
+            $strReq = "INSERT INTO ".$this->table." (`nom`, `prenom`, `adresse`, `code_postal`, `ville`, `commentaire`, `fk_id_category`) ";
             $strReq .= " VALUES (:nom, :prenom, :adresse, :code_postal, :ville, :commentaire, :fk_id_category)";
             $strReq .= " ON DUPLICATE KEY UPDATE `prenom` = :prenom, `ville` = :ville, `commentaire` = :commentaire ";                
             $reqPrepIns = $this->singleConnection->prepare($strReq);
@@ -65,7 +51,7 @@ class PersonneModel extends Model
             //si provient du clic sur le bouton 'nouveau client' on ne tient pas compte de select on passe en catég 2
             if(isset($item['btnNewClient'])){$item['fk_id_category']=2;}
 
-            $strReq="UPDATE ".self::$table." SET `nom` = :nom, `prenom` = :prenom, `adresse` = :adresse, ";
+            $strReq="UPDATE ".$this->table." SET `nom` = :nom, `prenom` = :prenom, `adresse` = :adresse, ";
             $strReq.="`code_postal` = :code_postal, `commentaire` = :commentaire , `ville` = :ville, `fk_id_category` = :fk_id_category ";
             $strReq.="WHERE `id`= :id";
             $prep = $this->singleConnection->prepare($strReq);
@@ -80,23 +66,6 @@ class PersonneModel extends Model
             $prep->execute();
             return $prep->rowCount();
         }
-    }
-
-    /**
-     * Méthode lançant la requete de suppression d'une personne 
-     *  
-     * @param array $item un tableau contenant l'id de l'item à supprimer
-     * @return int le nombre correspondant au nombre d'enregistrement mis à jour (1 si OK)
-     */        
-    public function delete($item){
-        if ($_SESSION['token']==$item['token']){
-            $strReq = "DELETE FROM ".self::$table." where id =:id";
-            $ReqPrep = $this->singleConnection->prepare($strReq);
-            $ReqPrep->bindParam(':id',$item['id'],PDO::PARAM_INT);
-            $ReqPrep->execute();
-            return $ReqPrep->rowCount(); 
-        }
     }    
-    
 }
  

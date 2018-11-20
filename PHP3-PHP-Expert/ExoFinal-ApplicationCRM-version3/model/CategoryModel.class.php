@@ -12,20 +12,7 @@ class CategoryModel extends Model
     /**
      * $table contient le nom de la table qui sera requetée
      */
-    static $table = 'crm_category';
-
-    /**
-     * Methode retournant un objet correspondant à la catégorie requetée catégorie
-     * 
-     * @param int $id
-     * @return obj Category $ObjItem
-     */
-    public function getItemById($post) {
-        $strReq = "SELECT * FROM ".self::$table." where id = :id";
-        $prep = $this->singleConnection->prepare($strReq);
-        $prep->execute(array(':id'=>$post['itemId']));
-        return $ObjItem = $prep->fetch(PDO::FETCH_OBJ);
-    }
+    protected $table = 'crm_category';
     
     /**
      * Methode lancant la requete de création d'une catégorie en base
@@ -35,7 +22,7 @@ class CategoryModel extends Model
      */
     public function insert($item) {
         if ($_SESSION['token']==$item['token']){
-            $reqPrepIns = $this->singleConnection->prepare("INSERT INTO ".self::$table." (`nom`, `description`) VALUES (:nom, :description)");
+            $reqPrepIns = $this->singleConnection->prepare("INSERT INTO ".$this->table." (`nom`, `description`) VALUES (:nom, :description)");
             $reqPrepIns->bindParam(':nom', $item['nom']);
             $reqPrepIns->bindParam(':description', $item['description']);            
             $reqPrepIns->execute();
@@ -53,7 +40,7 @@ class CategoryModel extends Model
      */
     public function Update($item){  
         if ($_SESSION['token']==$item['token']){
-            $strReq="UPDATE ".self::$table." SET `nom` = :nom, `description` = :description ";
+            $strReq="UPDATE ".$this->table." SET `nom` = :nom, `description` = :description ";
             $strReq.="WHERE `id`= :id";
             $prep = $this->singleConnection->prepare($strReq);
             $prep->bindParam(':nom', $item['nom']);
@@ -64,20 +51,6 @@ class CategoryModel extends Model
         }
     }
     
-    /**
-     * Méthode lançant la requete de suppression d'une catégorie 
-     *  
-     * @param array $item un tableau contenant l'id de l'item à supprimer
-     * @return int le nombre correspondant au nombre d'enregistrement mis à jour (1 si OK)
-     */    
-    public function Delete($item){
-        if ($_SESSION['token']==$item['token']){
-            $strReq = "DELETE FROM ".self::$table." where id =:id";
-            $ReqPrep = $this->singleConnection->prepare($strReq);
-            $ReqPrep->bindParam(':id',$item['id'],PDO::PARAM_INT);
-            $ReqPrep->execute();
-            return $ReqPrep->rowCount(); 
-        }
-    }
+
 }
  

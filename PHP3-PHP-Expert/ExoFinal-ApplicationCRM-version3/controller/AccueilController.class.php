@@ -11,4 +11,5 @@ class AccueilController extends Controller
         $viewer = new AccueilView;
         $viewer->displayPagehtml('accueil');
     }
+    public function listItems(){}
 }    

@@ -1,19 +1,16 @@
         <div class="jumbotron">
             <div class="container"> 
-                <h1>Bienvenue dans l'exercice Final du cours PHP3 ("application CRM") version multi controleur</h1>
-                <p>quelques points à noter : </p>
+                <h1>Bienvenue dans l'exercice Final du cours PHP3 ("application CRM") révision post corrections</h1>
+                <p>à noter : </p>
                 <div class="col-lg-8 col-lg-offset-2">
                   <ul class="list-group">
-                    <li class="list-group-item">Au niveau MPD, clients et Prospect sont stockées dans une entité "Personne"<br>
-                        Cliens et prospect n'étant effectivement tous des personnes, différents simplement d'un état changeant dans le temps.<br>
-                        (Les listes Clients et Prospects étant alimentées par 2 views distinctes sur cette tables)
+                    <li class="list-group-item">cette version comporte un dispactcher entre l'index et les différents controllers<br>
+                        (Ce dispatcher instancie le bon controleur dynamiquement avec les infos recues en post)
                     </li>
-                    <li class="list-group-item">Il en découle que, selon moi, un seul modeler (PersonneMode) s'avere nécessaire<br>
-                        (contrairement aux formulaires de client et propect différents dont la nécessité de classe ProspectView et ClientView paraissent nécessaires)
+                    <li class="list-group-item">Il existe un controleur pour chaque entité, mais également pour la page d'acceuil... <br>
+                        Question: l'architecture MVC implique t elle effectivement un controleur pour chaque page statique ?
                     </li>
-                    <li class="list-group-item">En ce qui concerne le partie controlleur, comme demandé, j'ai fait ici une version multicontroller (un controleur par entité<br>
-                        Je ne suis pas convaincu de l'interêt puisque tout le code est mutualiser dans la class controleur mère<br><br>
-                        J'avais donc fait une première verion <a href="../ExoFinal-ApplicationCRM/">ici</a> avec un unique controleur
+                    <li class="list-group-item">Les classes mères sont abstraites. Et toute les méthodes qui peuvent etre mutualisées le sont
                     </li>                    
                   </ul>
                 </div>

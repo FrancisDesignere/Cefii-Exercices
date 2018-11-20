@@ -20,7 +20,7 @@ class Dispatcher
         $cleanGet = filter_input_array(INPUT_GET);
         $cleanPost = filter_input_array(INPUT_POST);
         
-        $action = (isset($cleanGet['action']))?$cleanGet['action']:"list";
+        $action = (isset($cleanGet['action']))?$cleanGet['action']:"listItems";
         $entite = (isset($cleanGet['entite']))?$cleanGet['entite']:"accueil";
         if(isset($cleanPost['itemId'])) {
             $itemId = $cleanPost['itemId'];
