@@ -1,0 +1,176 @@
+# ce fichier est exploitable sous www.websequencediagrams.com
+# (c'est format propriétaire de définition d'un diagramme de séquence)
+
+title Sequence MVC - perimetre client ou prospect
+
+
+participant PersonneModel
+participant connectModel
+participant model
+participant index
+participant controller
+participant view 
+participant header\nhtml as header
+participant nav
+participant footer\nhtml as footer
+participant PersonneView
+participant [Prospect ou Client]\nView as pcView
+participant frmPersonne
+participant accueil\nhtml as accueil
+
+
+index<->controller: new Controller
+
+controller<->view :new View
+controller<->model :new Model
+model<->connectModel: new singleConnection
+
+opt affichage home
+index->+controller :dispatch(home)
+controller->+view: displayHmtl(home)
+deactivate controller
+view<->header:getContents()
+view<->nav:getContents()
+view<->accueil:getContents()
+view<->-footer:getContents()
+end
+
+opt affichage list
+index->+controller :dispatch(list)
+controller->+model: GetList(table)
+model <->connectModel:getInstance()
+model->model: requete bdd
+model-->-controller : list[]
+controller->+view: displayList(list[])
+deactivate controller
+view<->header:getContents()
+view<->nav:getContents()
+loop boucle par élement
+view<->view:ecrit chaque\n element
+end
+view<->-footer:getContents()
+end
+
+opt ajout item
+index->+controller :dispatch(frm)\n sans item
+controller->+pcView  : displayAdd(categories, defautCateg)
+deactivate controller
+pcView->+PersonneView:parent::Construtor
+deactivate pcView  
+PersonneView->+view : 
+view<->header : getContents()
+view<->nav : getContents()
+view->PersonneView : 
+PersonneView<->frmPersonne : getContents()
+PersonneView-->+pcView: frmPersonne
+deactivate PersonneView
+pcView->pcView : personalise
+opt prospectView
+pcView->pcView : cache le select
+end
+pcView->+PersonneView:displayAdd\n($categories, $defaultCateg)
+deactivate pcView
+PersonneView->PersonneView : vide valeur \n maj action
+PersonneView->-view : displayForm
+view<->-footer:getContents()
+opt à la validation du formulaire rempli
+index->+controller :dispatch(add)
+controller->+PersonneModel: Upsert
+PersonneModel->model:construt
+model <->connectModel:getInstance()
+model->PersonneModel: connection
+PersonneModel->PersonneModel: requete bdd
+PersonneModel-->-controller : 
+controller->+view: displayList(list[])
+deactivate controller
+note right of view  : voir opt affichage list
+deactivate view
+end
+end
+
+
+opt mise à jour item
+index->+controller :dispatch(frm) \n avec item
+controller->+PersonneModel: getItemById()
+PersonneModel->model:construt
+model <->connectModel:getInstance()
+model->PersonneModel: connection
+PersonneModel->PersonneModel: requete bdd
+PersonneModel-->-controller : item
+controller->+pcView  : displayUpdate(personne, categories)
+deactivate controller
+pcView->+PersonneView:parent::Construtor
+deactivate pcView  
+PersonneView->+view : 
+view<->header : getContents()
+view<->nav : getContents()
+view->PersonneView : 
+PersonneView<->frmPersonne : getContents()
+PersonneView-->+pcView: frmPersonne
+deactivate PersonneView
+pcView->pcView : personalise
+opt prospectView
+pcView->pcView : affiche bouton \n'passer en nouveau client'
+end
+pcView->+PersonneView:displayUpdate\n(personne, categories)
+deactivate pcView
+PersonneView->PersonneView : rempli valeur \n maj action
+PersonneView->-view : displayForm
+view<->-footer:getContents()
+opt à la validation du formulaire modifié
+index->+controller :dispatch(maj)
+controller->+PersonneModel: Upsert
+PersonneModel->model:construt
+model <->connectModel:getInstance()
+model->PersonneModel: connection
+PersonneModel->PersonneModel: requete bdd
+PersonneModel-->-controller : 
+controller->+view: displayList(list[])
+deactivate controller
+note right of view  : voir opt affichage list
+deactivate view
+end
+end
+
+opt suppression item
+index->+controller :dispatch(frmDel)
+controller->+PersonneModel: getItemById()
+PersonneModel->model:construt
+model <->connectModel:getInstance()
+model->PersonneModel: connection
+PersonneModel->PersonneModel: requete bdd
+PersonneModel-->-controller : item
+controller->+pcView  : displayDelete(personne, categories)
+deactivate controller
+pcView->+PersonneView:parent::Construtor
+deactivate pcView  
+PersonneView->+view : 
+view<->header : getContents()
+view<->nav : getContents()
+view->PersonneView : 
+PersonneView<->frmPersonne : getContents()
+PersonneView-->+pcView: frmPersonne
+deactivate PersonneView
+pcView->pcView : personalise
+opt prospectView
+pcView->pcView : cache le select
+end
+pcView->+PersonneView:displayDelete\n(personne, categories)
+deactivate pcView  
+PersonneView->PersonneView : lecture seule \n maj action
+PersonneView->-view : displayForm
+view<->-footer:getContents()
+opt à la validation de la suppression
+index->+controller :dispatch(del)
+controller->+PersonneModel: Upsert
+PersonneModel->model:construt
+model <->connectModel:getInstance()
+model->PersonneModel: connection
+PersonneModel->PersonneModel: requete bdd
+PersonneModel-->-controller : 
+controller->+view: displayList(list[])
+deactivate controller
+note right of view  : voir opt affichage list
+deactivate view
+end
+end

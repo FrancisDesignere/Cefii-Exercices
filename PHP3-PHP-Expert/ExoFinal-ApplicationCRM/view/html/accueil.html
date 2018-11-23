@@ -4,10 +4,17 @@
                 <p>quelques points à noter : </p>
                 <div class="col-lg-8 col-lg-offset-2">
                   <ul class="list-group">
-                      <li class="list-group-item">Au niveau MPD, clients et Prospect sont stockées dans une entité personne</li>
-                    <li class="list-group-item">je souhaitais trouver une solution de templating pour les listes, mais la seule solution qui me venait à l'esprit me semblait complexe.<br>
-                        Je suis donc resté sur la solution du controleur qui écrit le HTML (en attendant de trouver mieux...) 
+                    <li class="list-group-item">Au niveau MPD, clients et Prospect sont stockées dans une entité "Personne"<br>
+                        Cliens et prospect n'étant effectivement tous des personnes, différents simplement d'un état changeant dans le temps.<br>
+                        (Les listes Clients et Prospects étant alimentées par 2 views distinctes sur cette tables)
                     </li>
+                    <li class="list-group-item">Il en découle que, selon moi, un seul modeler (PersonneMode) s'avere nécessaire<br>
+                        (contrairement aux formulaires de client et propect différents dont la nécessité de classe ProspectView et ClientView paraissent nécessaires)
+                    </li>
+                    <li class="list-group-item">En ce qui concerne le partie controlleur, j'ai optée ici pour une solution d'un controller unique<br>
+                        En effet, les actions à gérer sont toutes les mêmes et il semblait simple de lui faire router dynamiquement, suivant les entités, aux bons viewers et Modeler<br><br>
+                        Toutefois, comme demandé sur une exercice précédent, j'ai fait <a href="../ExoFinal-ApplicationCRM-versionMultiController/">ici</a> une deuxieme version avec 3 controllers dédiés
+                    </li>                    
                   </ul>
                 </div>
             </div>

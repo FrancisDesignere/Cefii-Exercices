@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `crm_category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(50) NOT NULL,
   `description` VARCHAR(150) NULL,
-  PRIMARY KEY (`id_category`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -21,17 +21,17 @@ CREATE TABLE IF NOT EXISTS `crm_personne` (
   `code_postal` VARCHAR(5) NULL,
   `ville` VARCHAR(100) NULL,
   `commentaire` VARCHAR(500) NULL,
-  PRIMARY KEY (`id_personne`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_crm_personne_crm_category`
     FOREIGN KEY (`fk_id_category`)
-    REFERENCES `crm_category` (`id_category`)
+    REFERENCES `crm_category` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 ALTER TABLE `crm_personne` 
 ADD UNIQUE INDEX `foyer_unique` (`nom` ASC, `adresse` ASC, `code_postal` ASC);
-;
+
 -- -----------------------------------------------------
 -- Creation de la vue client 
 -- -----------------------------------------------------
@@ -50,14 +50,13 @@ CREATE VIEW `crm_client` AS
         JOIN `crm_category` `c` ON ((`p`.`fk_id_category` = `c`.`id`)))
     WHERE
         (`p`.`fk_id_category` > 1)
-    ORDER BY `c`.`id`
+    ORDER BY `c`.`id`;
 -- -----------------------------------------------------
 -- Creation de la vue prospect
 -- -----------------------------------------------------
 CREATE VIEW `crm_prospect` AS
     SELECT 
         `crm_personne`.`id` AS `id`,
-        `crm_personne`.`fk_id_category` AS `fk_id_category`,
         `crm_personne`.`nom` AS `nom`,
         `crm_personne`.`prenom` AS `prenom`,
         `crm_personne`.`adresse` AS `adresse`,

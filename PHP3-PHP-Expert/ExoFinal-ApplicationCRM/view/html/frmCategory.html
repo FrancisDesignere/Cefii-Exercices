@@ -10,13 +10,13 @@
                 <div class="form-group">
                     <label for="nom" class="col-sm-3 control-label">Nom* : </label>
                     <div class="col-sm-9">
-                        <input id="nom" name="nom" readonly type="text" class="form-control" placeholder="Nom de la catégorie" required value="{nom}">             
+                        <input id="nom" name="nom" maxlength="50" readonly type="text" class="form-control" placeholder="Nom de la catégorie" required value="{nom}">             
                     </div>
                 </div>
                 <div class="form-group"> 
                     <label for="description" class="col-sm-3 control-label">Déscription : </label>
                     <div class="col-sm-9">
-                        <input id="description" name="description" readonly type="text" class="form-control" value="{description}">
+                        <input id="description" name="description" maxlength="150" readonly type="text" class="form-control" value="{description}">
                     </div>
                 </div>
                 <input type="button" id="btnAnnuler" class="btn btn-danger" value="Annuler" onclick="history.back()"></input> 

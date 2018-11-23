@@ -3,17 +3,20 @@
 
 title Sequence MVC
 
+
+
+participant Cateorymodel
+participant connectModel
+participant model
 participant index
 participant controller
 participant view 
-participant [entite]view
-participant frm[entite]
 participant header\nhtml as header
 participant nav
-participant ?bodyPage\nhtml as ?bodyPage
 participant footer\nhtml as footer
-participant model
-participant [entite]model
+participant CateoryView
+participant frmCateory
+participant accueil\nhtml as accueil
 
 
 index<->controller: new Controller
@@ -28,7 +31,7 @@ controller->+view: displayHmtl(home)
 deactivate controller
 view<->header:getContents()
 view<->nav:getContents()
-view<->?bodyPage:getContents()
+view<->accueil:getContents()
 view<->-footer:getContents()
 end
 
@@ -50,24 +53,24 @@ end
 
 opt ajout item
 index->+controller :dispatch(frm)\n sans item
-controller->+[entite]view : displayAdd()
+controller->+CateoryView : displayAdd()
 deactivate controller
-[entite]view->+view : 
+CateoryView->+view : 
 view<->header : getContents()
 view<->nav : getContents()
-view->[entite]view : 
-[entite]view<->frm[entite] : getContents()
-[entite]view->[entite]view : vide valeur \n maj action
-[entite]view->-view : displayForm
+view->CateoryView : 
+CateoryView<->frmCateory : getContents()
+CateoryView->CateoryView : vide valeur \n maj action
+CateoryView->-view : displayForm
 view<->-footer:getContents()
 opt à la validation du formulaire rempli
 index->+controller :dispatch(add)
-controller->+[entite]model: Upsert
-[entite]model->model:construt
+controller->+Cateorymodel: Upsert
+Cateorymodel->model:construt
 model <->connectModel:getInstance()
-model->[entite]model: connection
-[entite]model->[entite]model: requete bdd
-[entite]model-->-controller : 
+model->Cateorymodel: connection
+Cateorymodel->Cateorymodel: requete bdd
+Cateorymodel-->-controller : 
 controller->+view: displayList(list[])
 deactivate controller
 note right of view  : voir opt affichage list
@@ -78,30 +81,30 @@ end
 
 opt mise à jour item
 index->+controller :dispatch(frm) \n avec item
-controller->+[entite]model: getItemById()
-[entite]model->model:construt
+controller->+Cateorymodel: getItemById()
+Cateorymodel->model:construt
 model <->connectModel:getInstance()
-model->[entite]model: connection
-[entite]model->[entite]model: requete bdd
-[entite]model-->-controller : item
-controller->+[entite]view : displayUpdate(item)
+model->Cateorymodel: connection
+Cateorymodel->Cateorymodel: requete bdd
+Cateorymodel-->-controller : item
+controller->+CateoryView : displayUpdate(item)
 deactivate controller
-[entite]view->+view : 
+CateoryView->+view : 
 view<->header : getContents()
 view<->nav : getContents()
-view->[entite]view : 
-[entite]view<->frm[entite] : getContents()
-[entite]view->[entite]view : rempli valeur \n maj action
-[entite]view->-view : displayForm
+view->CateoryView : 
+CateoryView<->frmCateory : getContents()
+CateoryView->CateoryView : rempli valeur \n maj action
+CateoryView->-view : displayForm
 view<->-footer:getContents()
 opt à la validation du formulaire modifié
 index->+controller :dispatch(maj)
-controller->+[entite]model: Upsert
-[entite]model->model:construt
+controller->+Cateorymodel: Upsert
+Cateorymodel->model:construt
 model <->connectModel:getInstance()
-model->[entite]model: connection
-[entite]model->[entite]model: requete bdd
-[entite]model-->-controller : 
+model->Cateorymodel: connection
+Cateorymodel->Cateorymodel: requete bdd
+Cateorymodel-->-controller : 
 controller->+view: displayList(list[])
 deactivate controller
 note right of view  : voir opt affichage list
@@ -111,30 +114,30 @@ end
 
 opt suppression item
 index->+controller :dispatch(frmDel)
-controller->+[entite]model: getItemById()
-[entite]model->model:construt
+controller->+Cateorymodel: getItemById()
+Cateorymodel->model:construt
 model <->connectModel:getInstance()
-model->[entite]model: connection
-[entite]model->[entite]model: requete bdd
-[entite]model-->-controller : item
-controller->+[entite]view : displayDelete(item)
+model->Cateorymodel: connection
+Cateorymodel->Cateorymodel: requete bdd
+Cateorymodel-->-controller : item
+controller->+CateoryView : displayDelete(item)
 deactivate controller
-[entite]view->+view : 
+CateoryView->+view : 
 view<->header : getContents()
 view<->nav : getContents()
-view->[entite]view : 
-[entite]view<->frm[entite] : getContents()
-[entite]view->[entite]view : lecture seule \n maj action
-[entite]view->-view : displayForm
+view->CateoryView : 
+CateoryView<->frmCateory : getContents()
+CateoryView->CateoryView : lecture seule \n maj action
+CateoryView->-view : displayForm
 view<->-footer:getContents()
 opt à la validation de la suppression
 index->+controller :dispatch(del)
-controller->+[entite]model: Upsert
-[entite]model->model:construt
+controller->+Cateorymodel: Upsert
+Cateorymodel->model:construt
 model <->connectModel:getInstance()
-model->[entite]model: connection
-[entite]model->[entite]model: requete bdd
-[entite]model-->-controller : 
+model->Cateorymodel: connection
+Cateorymodel->Cateorymodel: requete bdd
+Cateorymodel-->-controller : 
 controller->+view: displayList(list[])
 deactivate controller
 note right of view  : voir opt affichage list
