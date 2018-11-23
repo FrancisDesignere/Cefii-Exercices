@@ -42,10 +42,6 @@ protected $model;
     }
     
     public function listItems($ent="prospect"){
-        // ?? je ne comprend pas pourquoi j'ai du mettre cette condition
-        // normalement la valeur par défaut est déclaré dans la signature, mais ça ne marche pas !!!
-        if ($ent==''){$ent='prospect';}
-        
         $list = $this->model->getList($ent);
         $this->view->displayList($list, $ent);        
     }

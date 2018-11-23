@@ -1,0 +1,25 @@
+        <div class='container'>
+            <form class="form-horizontal col-sm-6" action="{postAction}" method="POST">
+                <legend>Renseignements categorie</legend>
+
+                <!-- le token et l'id sont présent mais cachés -->                
+                <input type="hidden" name="token" value="{token}">
+                <input id="id" name="id" type="text" hidden value="{id}">
+                
+                <!-- le token et l'id sont présent mais cachés -->                
+                <div class="form-group">
+                    <label for="nom" class="col-sm-3 control-label">Nom* : </label>
+                    <div class="col-sm-9">
+                        <input id="nom" name="nom" maxlength="50" readonly type="text" class="form-control" placeholder="Nom de la catégorie" required value="{nom}">             
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label for="description" class="col-sm-3 control-label">Déscription : </label>
+                    <div class="col-sm-9">
+                        <input id="description" name="description" maxlength="150" readonly type="text" class="form-control" value="{description}">
+                    </div>
+                </div>
+                <input type="button" id="btnAnnuler" class="btn btn-danger" value="Annuler" onclick="history.back()"></input> 
+                <button id="btnValid" type="submit" class="btn btn-primary pull-right">{lblBouton}</button>
+            </form>    
+        </div>

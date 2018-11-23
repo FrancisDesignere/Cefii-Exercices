@@ -29,8 +29,11 @@ class Dispatcher
         // pour la classe controleur 
         $strClassController = ucfirst($entite).'Controller';
         $entController = new $strClassController();
-
-        $entController->$action($cleanPost);
+        if(isset($cleanPost)){
+            $entController->$action($cleanPost);
+        }else{
+            $entController->$action();            
+        }
      
         
     }

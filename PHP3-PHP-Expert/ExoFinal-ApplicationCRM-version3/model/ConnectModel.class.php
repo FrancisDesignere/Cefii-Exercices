@@ -25,6 +25,11 @@ class ConnectModel
             define("USER","root");
             define("PWD","");
             define("BASE","cefiidev827");
+        }elseif($_SERVER['HTTP_HOST']=="ns3308429.ip-178-32-221.eu"){
+            define("SERVER","localhost:3306");
+            define("USER","root");
+            define("PWD","dev827");
+            define("BASE","cefiidev827");
         }else{
             define("SERVER","sqlprive-pc2372-001.privatesql:3306");
             define("USER","cefiidev827");

@@ -68,7 +68,7 @@ abstract class View
                 $this->page .= "<td>";
                     // les bouton correspondant aux actions 
                     $this->page .= '<button form="frmUpdt'.$item['id'].'" id="validModifItem" type="submit" title="modifier" ><span class="glyphicon glyphicon-pencil" ></span></button>'; 
-                    $this->page .= '<button form="frmDel'.$item['id'].'" id="validModifItem" type="submit" title="modifier" ><span class="glyphicon glyphicon-trash" ></span></button>'; 
+                    $this->page .= '<button form="frmDel'.$item['id'].'" id="validModifItem" type="submit" title="supprimer" ><span class="glyphicon glyphicon-trash" ></span></button>'; 
                 $this->page .= "</td>";
                 
                 // les formulaires correspondants aux actions (cachés, mais nécessaires...)

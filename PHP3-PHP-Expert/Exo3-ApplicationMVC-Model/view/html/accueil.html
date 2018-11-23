@@ -1,12 +1,17 @@
         <div class="jumbotron">
             <div class="container">
                 <h1>Bienvenue dans l'exercice3 du cours PHP3</h1>
-                <p>quelques points à noter : </p>
+                <p>Version corrigée post retour Cefii </p>
                 <div class="col-lg-8 col-lg-offset-2">
                   <ul class="list-group">
-                    <li class="list-group-item">pas encore de frm de création ou suppression -> 3 pages provisoires 'en dur' pour tests </li>
-                    <li class="list-group-item">j'ai unifié les methode add et update en une seule "uspsert"</li>
-                    <li class="list-group-item">je suis parti sur l'idée d'implémenter une archi "multi MVC" (d'où la création d'un UserModel spécifique)</li>
+                        <li class="list-group-item">
+                            remplacement du principe "getItemByData et upsert" <br>
+                            par update et insert(avec 'on duplicate key update)
+                        </li>                      
+                        <li class="list-group-item">correction du problème d'appel de classe via nom dynamique <br>
+                          (grace à ucfirst, merci pour l'analyse)
+                        </li>
+                        <li class="list-group-item">renomage des 2 methodes qui étaient en StudyCase plutôt qu'en camelCase</li>
                   </ul>
                 </div>
             </div>

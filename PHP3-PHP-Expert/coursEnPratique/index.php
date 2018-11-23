@@ -9,7 +9,11 @@ spl_autoload_register(function($classe){
         require 'model/' . $classe . '.class.php';             
     }
  });
-
-$main = new Controller();
-$main->dispatch();
-
+function testParm ($type = "lorem") 
+{
+    return "Voici le texte: $type.<br>";
+}
+echo testParm();
+echo testParm("ipsum");
+$plop = "";
+echo testParm($plop);
